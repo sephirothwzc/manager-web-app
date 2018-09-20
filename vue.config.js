@@ -2,7 +2,7 @@
  * @Author: 吴占超
  * @Date: 2018-09-20 20:05:17
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-09-20 20:13:22
+ * @Last Modified time: 2018-09-20 22:56:40
  * vue配置文件
  */
 module.exports = {
@@ -11,5 +11,10 @@ module.exports = {
     port: 8089,
     // 代理地址
     proxy: 'http://localhost:8081'
+  },
+  pluginOptions: {
+    'serve-api-mocks': {
+      base: '/mocks-api'
+    }
   }
 }

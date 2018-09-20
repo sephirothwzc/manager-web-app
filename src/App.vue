@@ -45,7 +45,9 @@
       </v-btn>
     </v-toolbar>
     <v-content>
-      <router-view/>
+      <transition name="scale-transition">
+        <router-view/>
+      </transition>
     </v-content>
     <v-navigation-drawer
       temporary
