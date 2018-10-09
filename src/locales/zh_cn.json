@@ -4,5 +4,6 @@
   "userName": "用户名",
   "passWord": "密码",
   "btnSubmit": "确定",
-  "btnCancel": "取消"
+  "btnCancel": "取消",
+  "tempMessage": "hello word 叨逼叨！"
 }
