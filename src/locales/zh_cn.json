@@ -5,5 +5,8 @@
   "passWord": "密码",
   "btnSubmit": "确定",
   "btnCancel": "取消",
-  "tempMessage": "hello word 叨逼叨！"
+  "roules": {
+    "required" : "必填项",
+    "length" : "长度不能小于"
+  }
 }
