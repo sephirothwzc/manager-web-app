@@ -111,10 +111,20 @@ export default {
       if (this.sumbitStart) return
       // 校验规则
       if (!this.$refs.form.validate()) {
-        return this.$toasted.show(this.$t('toasted.rules'), ToastedUtils.WarningOption)
+        return this.$toasted.show(
+          this.$t('toasted.rules'),
+          ToastedUtils.WarningOption
+        )
       }
       // 设置登陆状态
       this.sumbitStart = true
+      // 登陆请求
+      this.axios
+        .post('user/login', {
+          userName: this.userName,
+          passWord: this.passWord
+        })
+        .then(p => this.$router.push('/'))
     },
     /**
      * 取消按钮点击事件
