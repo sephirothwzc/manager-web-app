@@ -10,7 +10,7 @@
           <!-- v-card 卡片 语法糖用于快速构建组件 -->
           <v-card>
             <!-- v-carousel 轮播组件 -->
-            <v-carousel>
+            <v-carousel ref="carousel">
               <!-- v-carousel-item 轮播图片item  src图片属性 -->
               <!-- v-for array循环 key代表唯一主键有且只有唯一 -->
               <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src"></v-carousel-item>
@@ -30,7 +30,9 @@
                         <v-text-field :rules="formUtils.rules()" :label="$t('userName')"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm6 lg6 xl6>
-                        <v-text-field  :type="showPW ? 'text' : 'password'" @click:append="showPW = !showPW" :append-icon="showPW ? 'visibility_off' : 'visibility'" :rules="formUtils.rules({length:8})" :label="$t('passWord')"></v-text-field>
+                        <!-- type类型文本框还是密码 @click 事件绑定methods或者直接写方法体 -->
+                        <!-- :rules 校验规则，调用封装的 form-utils对象的方法 -->
+                        <v-text-field :type="showPW ? 'text' : 'password'" @click:append="showPW = !showPW" :append-icon="showPW ? 'visibility_off' : 'visibility'" :rules="formUtils.rules({length:8})" :label="$t('passWord')"></v-text-field>
                       </v-flex>
                     </v-layout>
                   </v-form>
@@ -53,6 +55,7 @@
 </template>
 
 <script>
+// 引用自定义封装的对象
 import FormUtils from '../utils/form-utils.js'
 /**
  * 1. 所有的属性 :src= 为例 冒号代表绑定vue变量，src= 为例 代表绑定字符串值
@@ -75,20 +78,30 @@ export default {
       showPW: false,
       userName: undefined,
       passWord: undefined,
+      // 轮播图数据源 从后端获取 增加了mockjs 使用 保留一张默认页面
       items: [
         {
           src: '/images/carousel/squirrel.jpg'
-        },
-        {
-          src: '/images/carousel/sky.jpg'
-        },
-        {
-          src: '/images/carousel/bird.jpg'
         }
       ]
     }
   },
+  /**
+   * 初始化方法只加载1次
+   */
+  mounted() {
+    // 加载页面初始化内容
+    this.pageInit()
+  },
   methods: {
+    /**
+     * 加载页面
+     */
+    pageInit() {
+      this.axios.extendGet('image/login-carousel').then(data => {
+        this.items = data
+      })
+    },
     /**
      * 确定按钮点击事件
      */
