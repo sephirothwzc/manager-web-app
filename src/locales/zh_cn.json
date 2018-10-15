@@ -8,5 +8,8 @@
   "roules": {
     "required" : "必填项",
     "length" : "长度不能小于"
+  },
+  "toasted": {
+    "rules": "请检查输入项！"
   }
 }

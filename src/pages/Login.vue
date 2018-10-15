@@ -57,6 +57,7 @@
 <script>
 // 引用自定义封装的对象
 import FormUtils from '../utils/form-utils.js'
+import ToastedUtils from '../utils/toasted-utils.js'
 /**
  * 1. 所有的属性 :src= 为例 冒号代表绑定vue变量，src= 为例 代表绑定字符串值
  * 2. {{}} 代表显示（单向绑定） 支持vue props(入参)、data(数据)、computed(计算属性)等 vue属性
@@ -110,7 +111,7 @@ export default {
       if (this.sumbitStart) return
       // 校验规则
       if (!this.$refs.form.validate()) {
-        return
+        return this.$toasted.show(this.$t('toasted.rules'), ToastedUtils.WarningOption)
       }
       // 设置登陆状态
       this.sumbitStart = true
