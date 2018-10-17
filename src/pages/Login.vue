@@ -133,7 +133,10 @@ export default {
     /**
      * 取消按钮点击事件
      */
-    clickCancel() {}
+    clickCancel() {
+      this.userName = undefined
+      this.passWord = undefined
+    }
   }
 }
 </script>
