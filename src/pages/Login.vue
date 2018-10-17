@@ -27,12 +27,12 @@
                       <v-flex xs12 sm6 lg6 xl6>
                         <!-- v-text-field 输入框 -->
                         <!-- rules formUtils.rulesRequired 必填方法 -->
-                        <v-text-field :rules="formUtils.rules()" :label="$t('userName')"></v-text-field>
+                        <v-text-field v-model="userName" :rules="formUtils.rules()" :label="$t('userName')"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm6 lg6 xl6>
                         <!-- type类型文本框还是密码 @click 事件绑定methods或者直接写方法体 -->
                         <!-- :rules 校验规则，调用封装的 form-utils对象的方法 -->
-                        <v-text-field :type="showPW ? 'text' : 'password'" @click:append="showPW = !showPW" :append-icon="showPW ? 'visibility_off' : 'visibility'" :rules="formUtils.rules({length:8})" :label="$t('passWord')"></v-text-field>
+                        <v-text-field v-model="passWord" :type="showPW ? 'text' : 'password'" @click:append="showPW = !showPW" :append-icon="showPW ? 'visibility_off' : 'visibility'" :rules="formUtils.rules({length:5})" :label="$t('passWord')"></v-text-field>
                       </v-flex>
                     </v-layout>
                   </v-form>
@@ -111,20 +111,24 @@ export default {
       if (this.sumbitStart) return
       // 校验规则
       if (!this.$refs.form.validate()) {
-        return this.$toasted.show(
+        return this.$toasted.info(
           this.$t('toasted.rules'),
-          ToastedUtils.WarningOption
+          ToastedUtils.InfoOption
         )
       }
       // 设置登陆状态
       this.sumbitStart = true
       // 登陆请求
       this.axios
-        .post('user/login', {
+        .post('sys-user/login', {
           userName: this.userName,
           passWord: this.passWord
         })
         .then(p => this.$router.push('/'))
+        .catch(error => {
+          this.sumbitStart = false
+          this.$toasted.error(error.message, ToastedUtils.ErrorOption)
+        })
     },
     /**
      * 取消按钮点击事件

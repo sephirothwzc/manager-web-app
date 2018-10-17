@@ -4,6 +4,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import AxiosUtils from '../utils/axios-utils.js'
+import Toasted from 'vue-toasted'
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -17,7 +18,7 @@ let config = {
 }
 
 const _axios = axios.create(config)
-
+Vue.use(Toasted)
 // #region 增加自定义扩展
 new AxiosUtils().extend(_axios)
 // #endregion
@@ -32,16 +33,15 @@ _axios.interceptors.request.use(
     return Promise.reject(error)
   }
 )
-
 // Add a response interceptor
 _axios.interceptors.response.use(
-  function(response) {
+  (response) => {
     // Do something with response data
     return response.data
   },
-  function(error) {
+  (error) => {
     // Do something with response error
-    return Promise.reject(error)
+    return Promise.reject(error.response.data)
   }
 )
 

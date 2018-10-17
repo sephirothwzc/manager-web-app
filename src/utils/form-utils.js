@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-13 13:12:36
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-13 14:37:08
+ * @Last Modified time: 2018-10-17 19:05:51
  */
 import i18n from '../i18n'
 
@@ -43,7 +43,7 @@ export default class FormUtils {
     // 长度校验
     param.length <= 0 ||
       rules.push(
-        v => this.isBlank(v) || (v && v.length > param.length) || `${i18n.t('roules.length')}${param.length}`
+        v => this.isBlank(v) || (v && v.length >= param.length) || `${i18n.t('roules.length')}${param.length}`
       )
     return rules
   }

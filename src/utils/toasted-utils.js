@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-15 14:48:08
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-15 14:55:22
+ * @Last Modified time: 2018-10-17 18:49:59
  */
 /**
  * toasted 属性帮助
@@ -20,7 +20,7 @@ export default class ToastedUtils {
    *
    * @memberOf ToastedUtils
    */
-  static get WarningOption() {
+  static get InfoOption() {
     return {
       // 颜色
       theme: 'bubble',
@@ -30,6 +30,17 @@ export default class ToastedUtils {
       duration: 1000,
       // icon
       icon: 'announcement'
+    }
+  }
+
+  static get ErrorOption() {
+    return {
+      // 位置
+      position: 'top-center',
+      // 时间
+      duration: 5000,
+      // icon
+      icon: 'assignment_late'
     }
   }
 }
