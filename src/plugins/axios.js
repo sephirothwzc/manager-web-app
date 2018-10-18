@@ -4,7 +4,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import AxiosUtils from '../utils/axios-utils.js'
-import Toasted from 'vue-toasted'
+import ToastedUtils from '../utils/toasted-utils.js'
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -18,28 +18,40 @@ let config = {
 }
 
 const _axios = axios.create(config)
-Vue.use(Toasted)
 // #region 增加自定义扩展
 new AxiosUtils().extend(_axios)
 // #endregion
 
 _axios.interceptors.request.use(
   function(config) {
+    // #region 注册ajaxLoad
+    window.vm.$store.dispatch('Main/startAjax', config.url)
+    // #endregion
     // Do something before request is sent
     return config
   },
   function(error) {
+    window.vm.$store.dispatch('Main/endAjax', error.url)
     // Do something with request error
     return Promise.reject(error)
   }
 )
 // Add a response interceptor
 _axios.interceptors.response.use(
-  (response) => {
+  response => {
+    window.vm.$store.dispatch('Main/endAjax', response.config.url)
     // Do something with response data
     return response.data
   },
-  (error) => {
+  error => {
+    window.vm.$store.dispatch('Main/endAjax', error.config.url)
+    error.response.state === 500 ||
+      window.vm.$toasted.error(error.response.data, ToastedUtils.ErrorOption)
+    error.response.state === 400 ||
+      window.vm.$toasted.error(
+        error.response.data.message,
+        ToastedUtils.ErrorOption
+      )
     // Do something with response error
     return Promise.reject(error.response.data)
   }
