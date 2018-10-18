@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-15 13:20:20
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-15 13:55:36
+ * @Last Modified time: 2018-10-18 13:33:49
  */
 import jslinq from 'jslinq'
 import Qs from 'qs'
@@ -33,9 +33,10 @@ export default class AxiosUtils {
     /**
      * 对象属性为空的不进行传递
      */
-    !urlParam || jslinq(Object.keys(urlParam))
-      .where(p => !urlParam[p])
-      .select(p => delete urlParam[p])
+    !urlParam ||
+      jslinq(Object.keys(urlParam))
+        .where(p => !urlParam[p])
+        .select(p => delete urlParam[p])
     /**
      * 提交对象为get url 参数
      */
