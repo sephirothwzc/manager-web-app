@@ -124,7 +124,10 @@ export default {
           userName: this.userName,
           passWord: this.passWord
         })
-        .then(p => this.$router.push('/'))
+        .then(p => {
+          this.$store.dispatch('Main/loginSuccess', p)
+          this.$router.push('/')
+        })
         .catch(error => {
           this.sumbitStart = false
           this.$toasted.error(error.message, ToastedUtils.ErrorOption)

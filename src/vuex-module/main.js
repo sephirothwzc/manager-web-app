@@ -3,16 +3,11 @@
  * @Author: 吴占超
  * @Date: 2018-10-18 16:30:40
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-18 21:20:32
+ * @Last Modified time: 2018-10-20 11:13:27
  */
 import jslinq from 'jslinq'
-/**
- * 校验key为必填
- *
- */
-function validKey() {
-  throw new Error(`Missing parameter[key]`)
-}
+import { validKey } from '../utils/common-utils'
+import StorageUtils from '../utils/storage-utils.js'
 export default {
   namespaced: true,
   // module assets
@@ -20,9 +15,23 @@ export default {
     // 加载状态
     ajaxLoad: false,
     // ajax正在加载的项目
-    loadingItem: []
+    loadingItem: [],
+    // 当前登陆人
+    user: undefined
   },
   getters: {
+    /**
+     * 获取当前登陆用户
+     *
+     * @returns
+     */
+    User(state, getters) {
+      let user = StorageUtils.getSessionItem('loginUser')
+      if (!state.user && user) {
+        state.user = user
+      }
+      return state.user
+    },
     /**
      * ajax 加载状态
      *
@@ -55,6 +64,12 @@ export default {
         .where(p => p !== key)
         .toList()
       state.ajaxLoad = state.loadingItem.length > 0
+    },
+    loginSuccess(state, user = validKey()) {
+      state.user = user
+    },
+    logoutSuccess(state) {
+      state.user = undefined
     }
   },
   actions: {
@@ -63,6 +78,25 @@ export default {
     },
     endAjax(context, key = validKey()) {
       context.commit('endAjax', key)
+    },
+    /**
+     * 登陆成功方法
+     *
+     * @param {any} context
+     * @param {any} user
+     */
+    loginSuccess(context, user = validKey()) {
+      StorageUtils.setSessionItem('loginUser', user)
+      context.commit('loginSuccess', user)
+    },
+    /**
+     * 清空登陆人
+     *
+     * @param {any} context
+     */
+    logoutSuccess(context) {
+      StorageUtils.clearSession('loginUser')
+      context.commit('logoutSuccess')
     }
   }
 }

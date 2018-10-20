@@ -1,17 +1,17 @@
 <template>
   <v-app>
     <!-- 主左侧导航 -->
-    <v-navigation-drawer persistent :mini-variant="miniVariant" :clipped="clipped" v-model="drawer" enable-resize-watcher fixed app>
+    <v-navigation-drawer :disable-route-watcher="true" persistent :mini-variant="miniVariant" :clipped="clipped" v-model="drawer" enable-resize-watcher fixed app>
       <!-- 头像 -->
       <v-toolbar flat class="transparent">
         <v-list class="pa-0">
           <v-list-tile avatar>
             <v-list-tile-avatar>
-              <img src="https://randomuser.me/api/portraits/men/85.jpg">
+              <img :src.sync="$store.getters['Main/User'].headPortrait">
             </v-list-tile-avatar>
 
             <v-list-tile-content>
-              <v-list-tile-title>John Leider</v-list-tile-title>
+              <v-list-tile-title>{{$store.getters['Main/User'].realName}}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -21,20 +21,49 @@
         <!-- 循环用标签 -->
         <template v-for="(item, i) in navItems">
           <!-- 不包含二级菜单 -->
-          <v-list-tile value="true" v-if="!item.children" :key="i">
+          <v-list-tile value="true" v-if="!item.children" :key="i" :to="`/${item.path}`">
             <!-- 标题头 icon -->
             <v-list-tile-action>
               <v-icon v-html="item.icon"></v-icon>
             </v-list-tile-action>
             <!-- 标题文本 -->
             <v-list-tile-content>
-              <v-list-tile-title v-text="item.title"></v-list-tile-title>
+              <v-list-tile-title v-text="$t(item.title)"></v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-list-group v-if="item.children" :prepend-icon="item.icon" value="true" :key="i">
-            <v-list-tile slot="activator">
-              <v-list-tile-title v-text="item.title"></v-list-tile-title>
+          <v-list-group v-if="item.children" :prepend-icon="item.icon" :value="i === 0" :key="i">
+            <v-list-tile slot="activator" :to="`/${item.path}`">
+              <v-list-tile-title v-text="$t(item.title)"></v-list-tile-title>
             </v-list-tile>
+            <!-- 循环用标签 -->
+            <template v-for="(citem, x) in item.children">
+              <!-- 不包含二级菜单 -->
+              <v-list-tile value="true" v-if="!citem.children" :key="x" :to="`/${item.path}/${citem.path}`">
+                <!-- 标题头 icon -->
+                <v-list-tile-action>
+                  <v-icon v-html="citem.icon"></v-icon>
+                </v-list-tile-action>
+                <!-- 标题文本 -->
+                <v-list-tile-content>
+                  <v-list-tile-title v-text="$t(citem.title)"></v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-group no-action sub-group v-if="citem.children" value="true" :key="x">
+                <v-list-tile slot="activator">
+                  <v-list-tile-title v-text="$t(citem.title)"></v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile value="true" v-for="(threeitem, t) in citem.children" :key="t" :to="`/${item.path}/${threeitem.path}`">
+                  <!-- 标题文本 -->
+                  <v-list-tile-content>
+                    <v-list-tile-title v-text="$t(threeitem.title)"></v-list-tile-title>
+                  </v-list-tile-content>
+                  <!-- 标题头 icon -->
+                  <v-list-tile-action>
+                    <v-icon v-html="threeitem.icon"></v-icon>
+                  </v-list-tile-action>
+                </v-list-tile>
+              </v-list-group>
+            </template>
           </v-list-group>
         </template>
       </v-list>
@@ -84,7 +113,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-const { mapState } = createNamespacedHelpers('Main')
+const { mapState, mapActions } = createNamespacedHelpers('Main')
 /**
  * 主页
  */
@@ -95,12 +124,7 @@ export default {
       drawer: true,
       fixed: false,
       // 导航菜单数据源，图标、链接、名称（i18n）
-      navItems: [
-        {
-          icon: 'fas fa-shapes',
-          title: 'Inspire'
-        }
-      ],
+      navItems: [],
       miniVariant: false,
       right: true,
       rightDrawer: false,
@@ -117,6 +141,7 @@ export default {
     this.pageInit()
   },
   methods: {
+    ...mapActions(['loginSuccess', 'logoutSuccess']),
     pageInit() {
       // 加载导航
       this.axios.get(`sys-user/navigation`).then(data => (this.navItems = data))

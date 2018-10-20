@@ -6,10 +6,14 @@
   "btnSubmit": "确定",
   "btnCancel": "取消",
   "roules": {
-    "required" : "必填项",
-    "length" : "长度不能小于"
+    "required": "必填项",
+    "length": "长度不能小于"
   },
   "toasted": {
     "rules": "请检查输入项！"
-  }
+  },
+  "system-manager": "系统管理",
+  "sys-user-manager": "用户管理",
+  "sys-role": "角色",
+  "sys-role-manager": "角色管理"
 }
