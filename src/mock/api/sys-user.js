@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-15 16:57:54
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-20 11:22:27
+ * @Last Modified time: 2018-10-21 20:59:15
  */
 import Mock from 'mockjs'
 
@@ -16,7 +16,7 @@ Mock.mock('sys-user/login', 'post', param => {
     userName: 'admin',
     userCode: '00001',
     realName: '蒂法',
-    headPortrait: 'images/head-portrait/timg.jpeg'
+    headPortrait: '/images/head-portrait/timg.jpeg'
   }
 })
 
