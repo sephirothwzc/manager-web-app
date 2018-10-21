@@ -12,6 +12,7 @@
   "toasted": {
     "rules": "请检查输入项！"
   },
+  "system": "系统管理",
   "system-manager": "系统管理",
   "sys-user-manager": "用户管理",
   "sys-role": "角色",

@@ -32,7 +32,7 @@
             </v-list-tile-content>
           </v-list-tile>
           <v-list-group v-if="item.children" :prepend-icon="item.icon" :value="i === 0" :key="i">
-            <v-list-tile slot="activator" :to="`/${item.path}`">
+            <v-list-tile slot="activator">
               <v-list-tile-title v-text="$t(item.title)"></v-list-tile-title>
             </v-list-tile>
             <!-- 循环用标签 -->
@@ -88,12 +88,13 @@
     </v-toolbar>
     <!-- 内容区域 -->
     <v-content>
-      <v-progress-linear v-if="ajaxLoad" :indeterminate="true" :active="ajaxLoad" height="3"></v-progress-linear>
+      <!-- <v-progress-linear v-if="ajaxLoad" :indeterminate="true" :active="ajaxLoad" height="3"></v-progress-linear> -->
+      <w-nav-breadcrumbs></w-nav-breadcrumbs>
       <transition name="scale-transition">
         <router-view/>
       </transition>
     </v-content>
-    <!-- 右侧导航 -->
+    <!-- 右侧区域 用于消息列表 -->
     <v-navigation-drawer temporary :right="right" v-model="rightDrawer" fixed app>
       <v-list>
         <v-list-tile @click="right = !right">
@@ -107,17 +108,22 @@
     <!-- 页脚 -->
     <v-footer :fixed="fixed" app>
       <span>&copy; 2017</span>
+      <v-progress-linear color="secondary" height="2" value="15" v-if="ajaxLoad" :indeterminate="true" :active="ajaxLoad"></v-progress-linear>
     </v-footer>
   </v-app>
 </template>
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
+import NavBreadcrumbs from '../components/main/NavBreadcrumbs.vue'
 const { mapState, mapActions } = createNamespacedHelpers('Main')
 /**
  * 主页
  */
 export default {
+  components: {
+    'w-nav-breadcrumbs': NavBreadcrumbs
+  },
   data() {
     return {
       clipped: false,
@@ -132,7 +138,7 @@ export default {
     }
   },
   computed: {
-    // 解构状态绑定
+    // 解构vuex状态绑定
     ...mapState({
       ajaxLoad: state => state.ajaxLoad
     })
