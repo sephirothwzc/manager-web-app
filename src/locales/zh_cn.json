@@ -5,6 +5,10 @@
   "passWord": "密码",
   "btnSubmit": "确定",
   "btnCancel": "取消",
+  "advancedQuery": "高级查询",
+  "search": "查询",
+  "vagueSearch": "模糊查询",
+  "noResults": "未查询到结果！",
   "roules": {
     "required": "必填项",
     "length": "长度不能小于"

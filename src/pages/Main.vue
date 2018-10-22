@@ -95,7 +95,7 @@
       </transition>
     </v-content>
     <!-- 右侧区域 用于消息列表 -->
-    <v-navigation-drawer temporary :right="right" v-model="rightDrawer" fixed app>
+    <!-- <v-navigation-drawer temporary :right="right" v-model="rightDrawer" fixed app>
       <v-list>
         <v-list-tile @click="right = !right">
           <v-list-tile-action>
@@ -104,7 +104,7 @@
           <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
         </v-list-tile>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
     <!-- 页脚 -->
     <v-footer :fixed="fixed" app>
       <span>&copy; 2017</span>
