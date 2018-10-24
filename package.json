@@ -11,7 +11,8 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0-rc.1",
     "@fortawesome/fontawesome-free": "^5.2.0",
-    "jslinq": "^1.0.21",
+    "i": "^0.3.6",
+    "lodash": "^4.17.11",
     "material-design-icons-iconfont": "^3.0.3",
     "mockjs": "^1.0.1-beta3",
     "qs": "^6.5.2",

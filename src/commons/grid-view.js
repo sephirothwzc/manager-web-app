@@ -3,11 +3,37 @@
  * @Author: 吴占超
  * @Date: 2018-10-22 21:36:17
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-22 22:04:19
+ * @Last Modified time: 2018-10-24 09:50:48
  */
 import { validKey } from '../utils/common-utils.js'
 export default class GridView {
-  constructor({ id = 'id', columns = validKey('columns'), pagination }) {
+  /**
+   * Creates an instance of GridView.
+   * @param {any} {
+   *     id = 'id',
+   *     columns = validKey('columns'),
+   *     pagination = {
+   *       descending: true,
+   *       page: 1,
+   *       rowsPerPage: 10,
+   *       totalItems: 0,
+   *       sortBy: undefined
+   *     }
+   *   }
+   *
+   * @memberOf GridView
+   */
+  constructor({
+    id = 'id',
+    columns = validKey('columns'),
+    pagination = {
+      descending: true,
+      page: 1,
+      rowsPerPage: 10,
+      totalItems: 0,
+      sortBy: undefined
+    }
+  }) {
     this.id = id
     this.columns = columns
     this.pagination = pagination

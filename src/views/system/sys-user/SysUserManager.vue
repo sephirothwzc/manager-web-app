@@ -8,7 +8,7 @@
         </v-card>
       </v-expansion-panel-content>
     </v-expansion-panel>
-    <w-data-grid></w-data-grid>
+    <w-data-grid :grid-view="gridview"></w-data-grid>
   </v-container>
 </template>
 
@@ -16,6 +16,7 @@
 // 组件
 import DataGrid from '../../../components/DataGrid.vue'
 import GridView from '../../../commons/grid-view.js'
+import DataGridColumn from '../../../commons/data-grid-column.js'
 /**
  * 用户管理
  */
@@ -24,7 +25,13 @@ export default {
     'w-data-grid': DataGrid
   },
   data: () => ({
-    headers: new GridView()
+    gridview: new GridView({
+      columns: [
+        new DataGridColumn({ text: 'userName' }),
+        new DataGridColumn({ text: 'userCode' }),
+        new DataGridColumn({ text: 'notes' })
+      ]
+    })
   })
 }
 </script>

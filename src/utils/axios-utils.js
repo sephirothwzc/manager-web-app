@@ -3,9 +3,9 @@
  * @Author: 吴占超
  * @Date: 2018-10-15 13:20:20
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-18 13:33:49
+ * @Last Modified time: 2018-10-24 13:12:05
  */
-import jslinq from 'jslinq'
+import _ from 'lodash'
 import Qs from 'qs'
 
 export default class AxiosUtils {
@@ -34,9 +34,10 @@ export default class AxiosUtils {
      * 对象属性为空的不进行传递
      */
     !urlParam ||
-      jslinq(Object.keys(urlParam))
-        .where(p => !urlParam[p])
-        .select(p => delete urlParam[p])
+      _(Object.keys(urlParam))
+        .filter(p => !urlParam[p])
+        .map(p => delete urlParam[p])
+        .value()
     /**
      * 提交对象为get url 参数
      */

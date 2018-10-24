@@ -3,9 +3,9 @@
  * @Author: 吴占超
  * @Date: 2018-10-18 16:30:40
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-20 11:13:27
+ * @Last Modified time: 2018-10-24 13:12:17
  */
-import jslinq from 'jslinq'
+import _ from 'lodash'
 import { validKey } from '../utils/common-utils'
 import StorageUtils from '../utils/storage-utils.js'
 export default {
@@ -60,9 +60,9 @@ export default {
      * @param {any} key
      */
     endAjax(state, key) {
-      state.loadingItem = jslinq(state.loadingItem)
-        .where(p => p !== key)
-        .toList()
+      state.loadingItem = _(state.loadingItem)
+        .filter(p => p !== key)
+        .value()
       state.ajaxLoad = state.loadingItem.length > 0
     },
     loginSuccess(state, user = validKey()) {

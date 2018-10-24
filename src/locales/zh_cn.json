@@ -9,6 +9,7 @@
   "search": "查询",
   "vagueSearch": "模糊查询",
   "noResults": "未查询到结果！",
+  "noData": "Sorry, nothing to display here :(",
   "roules": {
     "required": "必填项",
     "length": "长度不能小于"
@@ -20,5 +21,20 @@
   "system-manager": "系统管理",
   "sys-user-manager": "用户管理",
   "sys-role": "角色",
-  "sys-role-manager": "角色管理"
+  "sys-role-manager": "角色管理",
+  "home": "主页",
+  "$vuetify": {
+    "dataIterator": {
+      "rowsPerPageText": "行项目:",
+      "rowsPerPageAll": "全部",
+      "pageText": "\\{0\\}-\\{1\\} 共 \\{2\\}",
+      "noResultsText": "没有找到匹配的记录",
+      "nextPage": "下一页",
+      "prevPage": "上一页"
+    },
+    "dataTable": {
+      "rowsPerPageText": "每页行数:"
+    },
+    "noDataText": "没有匹配到数据"
+  }
 }

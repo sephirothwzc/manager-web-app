@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
-import zhHans from 'vuetify/es5/locale/zh-Hans'
+// import zhHans from 'vuetify/es5/locale/zh-Hans'
 // 图标icon引入 需要使用sass-load
 // npm install sass-loader -D
 // npm install node-sass -D
 import 'material-design-icons-iconfont'
+import vuetityI18n from '../utils/vuetity-i18n.js'
 
+// Create VueI18n instance with options
 Vue.use(Vuetify, {
   // theme: {
   //   primary: '#ee44aa',
@@ -20,7 +22,10 @@ Vue.use(Vuetify, {
   customProperties: true,
   iconfont: 'fa',
   lang: {
-    locales: { zhHans },
-    current: 'zh-Hans'
+    t: (key, ...params) => vuetityI18n.t(key, params)
   }
+  // lang: {
+  //   locales: { zhHans },
+  //   current: 'zh-Hans'
+  // }
 })
