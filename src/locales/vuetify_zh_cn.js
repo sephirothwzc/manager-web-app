@@ -1,9 +1,9 @@
 /*
- * vuetity 多语言
+ * vuetify 多语言
  * @Author: 吴占超
  * @Date: 2018-10-24 14:07:44
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-24 14:33:06
+ * @Last Modified time: 2018-10-24 14:36:54
  */
 
 export default {
@@ -19,6 +19,6 @@ export default {
     dataTable: {
       rowsPerPageText: '每页行数:'
     },
-    noDataText: '没有匹配到数据'
+    noDataText: '没有数据显示'
   }
 }

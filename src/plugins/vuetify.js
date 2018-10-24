@@ -6,7 +6,7 @@ import 'vuetify/dist/vuetify.min.css'
 // npm install sass-loader -D
 // npm install node-sass -D
 import 'material-design-icons-iconfont'
-import vuetityI18n from '../utils/vuetity-i18n.js'
+import vuetifyI18n from '../utils/vuetify-i18n.js'
 
 // Create VueI18n instance with options
 Vue.use(Vuetify, {
@@ -22,7 +22,7 @@ Vue.use(Vuetify, {
   customProperties: true,
   iconfont: 'fa',
   lang: {
-    t: (key, ...params) => vuetityI18n.t(key, params)
+    t: (key, ...params) => vuetifyI18n.t(key, params)
   }
   // lang: {
   //   locales: { zhHans },

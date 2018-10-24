@@ -1,5 +1,5 @@
 /*
- * vuetity 多语言
+ * vuetify 多语言
  * @Author: 吴占超
  * @Date: 2018-10-24 14:14:02
  * @Last Modified by: 吴占超
@@ -15,11 +15,11 @@ function loadLocaleMessages() {
   const locales = require.context(
     '../locales',
     true,
-    /vuetity_[A-Za-z0-9-_,\s]+\.js$/i
+    /vuetify_[A-Za-z0-9-_,\s]+\.js$/i
   )
   const messages = {}
   locales.keys().forEach(key => {
-    const matched = _.replace(key, 'vuetity_', '').match(/([A-Za-z0-9-_]+)\./i)
+    const matched = _.replace(key, 'vuetify_', '').match(/([A-Za-z0-9-_]+)\./i)
     if (matched && matched.length > 1) {
       const locale = matched[1]
       messages[locale] = locales(key).default
