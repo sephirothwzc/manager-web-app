@@ -47,6 +47,13 @@ export default {
     }
   },
   data: () => ({
+    /**
+     * 查询条件
+     */
+    formObject: undefined,
+    /**
+     * 选中行
+     */
     selected: [],
     /**
      * 模糊查询条件
@@ -77,7 +84,6 @@ export default {
         this.gridView.Pagination.sortBy = column
       }
       this.gridView.Pagination.descending = dd
-      console.log(this.gridView.Pagination.descending)
     },
     sortClass(header) {
       let descIcon = ''
@@ -91,6 +97,28 @@ export default {
           header.value === this.gridView.Pagination.sortBy ? 'active' : ''
         ])
       return headerClass
+    },
+    /**
+     * ajax加载事件，如果有loadAction 则替换当前对象
+     */
+    loadData() {
+      this.axios.extendGet(this.gridView.getMapping, {
+        ...this.formObject,
+        ...this.gridView.Pagination
+      })
+    }
+  },
+  watch: {
+    'gridView.Pagination': {
+      handler(pagination) {
+        // 查询
+      },
+      deep: true
+    },
+    loadAction(fun) {
+      if (fun) {
+        this.loadData = fun
+      }
     }
   }
 }
