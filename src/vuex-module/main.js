@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-18 16:30:40
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-24 13:12:17
+ * @Last Modified time: 2018-10-24 16:06:39
  */
 import _ from 'lodash'
 import { validKey } from '../utils/common-utils'
@@ -65,9 +65,20 @@ export default {
         .value()
       state.ajaxLoad = state.loadingItem.length > 0
     },
+    /**
+     * 登陆成功
+     *
+     * @param {any} state
+     * @param {any} [user=validKey()]
+     */
     loginSuccess(state, user = validKey()) {
       state.user = user
     },
+    /**
+     * 退出
+     *
+     * @param {any} state
+     */
     logoutSuccess(state) {
       state.user = undefined
     }

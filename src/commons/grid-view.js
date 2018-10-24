@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-22 21:36:17
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-24 09:50:48
+ * @Last Modified time: 2018-10-24 16:09:20
  */
 import { validKey } from '../utils/common-utils.js'
 export default class GridView {
@@ -26,6 +26,7 @@ export default class GridView {
   constructor({
     id = 'id',
     columns = validKey('columns'),
+    getMapping,
     pagination = {
       descending: true,
       page: 1,
@@ -37,6 +38,7 @@ export default class GridView {
     this.id = id
     this.columns = columns
     this.pagination = pagination
+    this.getMapping = getMapping
   }
   get Columns() {
     return this.columns
@@ -52,5 +54,11 @@ export default class GridView {
   }
   set Pagination(value) {
     this.pagination = value
+  }
+  get GetMapping() {
+    return this.getMapping
+  }
+  set GetMapping(value) {
+    this.getMapping = value
   }
 }

@@ -8,7 +8,7 @@
       <template slot="headers" slot-scope="props">
         <tr>
           <th v-for="header in props.headers" :key="header.text" :class="sortClass(header)" @click="header.sortable?changeSort(header.value): undefined">
-            {{ header.text }}
+            {{ $t(header.text) }}
             <v-icon small>arrow_upward</v-icon>
           </th>
         </tr>
@@ -38,6 +38,12 @@ export default {
         return GridView.prototype.isPrototypeOf(value)
       },
       required: true
+    },
+    /**
+     * 自定义加载事件，优先级高于getMapping
+     */
+    loadAction: {
+      type: Function
     }
   },
   data: () => ({
@@ -57,24 +63,31 @@ export default {
       else this.selected = this.desserts.slice()
     },
     changeSort(column) {
+      let dd = false
       if (this.gridView.Pagination.sortBy === column) {
-        if (this.gridView.Pagination.descending) {
-          this.gridView.Pagination.descending = undefined
-        } else {
-          this.gridView.Pagination.descending = !this.gridView.Pagination
-            .descending
+        if (this.gridView.Pagination.descending === true) {
+          dd = undefined
+          this.gridView.Pagination.sortBy = undefined
+        } else if (this.gridView.Pagination.descending === false) {
+          dd = true
+        } else if (this.gridView.Pagination.descending === undefined) {
+          dd = false
         }
       } else {
         this.gridView.Pagination.sortBy = column
-        this.gridView.Pagination.descending = false
       }
+      this.gridView.Pagination.descending = dd
+      console.log(this.gridView.Pagination.descending)
     },
     sortClass(header) {
+      let descIcon = ''
+      !this.gridView.Pagination.descending ||
+        (descIcon = this.gridView.Pagination.descending ? 'desc' : 'asc')
       let headerClass = ''
       !header.sortable ||
         (headerClass = [
           'column sortable',
-          this.gridView.Pagination.descending ? 'desc' : 'asc',
+          descIcon,
           header.value === this.gridView.Pagination.sortBy ? 'active' : ''
         ])
       return headerClass

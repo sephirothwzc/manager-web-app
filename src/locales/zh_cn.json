@@ -23,18 +23,6 @@
   "sys-role": "角色",
   "sys-role-manager": "角色管理",
   "home": "主页",
-  "$vuetify": {
-    "dataIterator": {
-      "rowsPerPageText": "行项目:",
-      "rowsPerPageAll": "全部",
-      "pageText": "\\{0\\}-\\{1\\} 共 \\{2\\}",
-      "noResultsText": "没有找到匹配的记录",
-      "nextPage": "下一页",
-      "prevPage": "上一页"
-    },
-    "dataTable": {
-      "rowsPerPageText": "每页行数:"
-    },
-    "noDataText": "没有匹配到数据"
-  }
+  "userCode": "用户编码",
+  "notes": "备注"
 }
