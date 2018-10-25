@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-22 21:33:36
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-24 09:10:31
+ * @Last Modified time: 2018-10-25 15:36:10
  */
 import { validKey } from '../utils/common-utils.js'
 /**
@@ -31,7 +31,7 @@ export default class DataGridColumn {
     text = validKey('text'),
     value,
     dataField,
-    columnClass = 'justify-center',
+    columnClass = 'text-xs-center',
     align = 'center',
     sortable = true,
     width = undefined
@@ -45,7 +45,7 @@ export default class DataGridColumn {
     if (dataField) {
       this.dataField = dataField
     } else {
-      this.dataField = value
+      this.dataField = this.value
     }
     this.columnClass = columnClass
     this.align = align

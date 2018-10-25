@@ -62,7 +62,11 @@ export default {
     /**
      * 数据源
      */
-    desserts: []
+    desserts: [],
+    /**
+     * 总行数
+     */
+    totalRows: undefined
   }),
   methods: {
     toggleAll() {
@@ -102,16 +106,23 @@ export default {
      * ajax加载事件，如果有loadAction 则替换当前对象
      */
     loadData() {
-      this.axios.extendGet(this.gridView.getMapping, {
-        ...this.formObject,
-        ...this.gridView.Pagination
-      })
+      this.axios
+        .extendGet(this.gridView.GetMapping, {
+          vagueSearch: this.vagueSearch,
+          ...this.formObject,
+          ...this.gridView.Pagination
+        })
+        .then(data => {
+          this.desserts = data.list
+          this.totalRows = data.total
+        })
     }
   },
   watch: {
     'gridView.Pagination': {
       handler(pagination) {
         // 查询
+        this.loadData()
       },
       deep: true
     },

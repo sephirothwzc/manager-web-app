@@ -30,7 +30,8 @@ export default {
         new DataGridColumn({ text: 'userName' }),
         new DataGridColumn({ text: 'userCode' }),
         new DataGridColumn({ text: 'notes' })
-      ]
+      ],
+      getMapping: '/sys-user'
     })
   })
 }

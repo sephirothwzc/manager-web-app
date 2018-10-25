@@ -7,11 +7,11 @@
         <v-list class="pa-0">
           <v-list-tile avatar>
             <v-list-tile-avatar>
-              <img :src.sync="$store.getters['Main/User'].headPortrait">
+              <img :src.sync="user.headPortrait">
             </v-list-tile-avatar>
 
             <v-list-tile-content>
-              <v-list-tile-title>{{$store.getters['Main/User'].realName}}</v-list-tile-title>
+              <v-list-tile-title>{{user.realName}}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -140,8 +140,12 @@ export default {
   computed: {
     // 解构vuex状态绑定
     ...mapState({
-      ajaxLoad: state => state.ajaxLoad
+      ajaxLoad: state => state.ajaxLoad,
+      user: state => state.user
     })
+  },
+  created() {
+    this.$store.getters['Main/User'] || this.$router.push('/login')
   },
   mounted() {
     this.pageInit()
