@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-22 21:36:17
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-24 18:44:35
+ * @Last Modified time: 2018-10-25 15:49:01
  */
 import { validKey } from '../utils/common-utils.js'
 export default class GridView {
@@ -20,7 +20,8 @@ export default class GridView {
    *       totalItems: 0,
    *       sortBy: undefined,
    *       fields: undefined
-   *     }
+   *     },
+   *     firstCheck = true // 首列选中行
    *   }
    *
    * @memberOf GridView
@@ -36,12 +37,20 @@ export default class GridView {
       totalItems: 0,
       sortBy: undefined,
       fields: undefined
-    }
+    },
+    firstCheck = true
   }) {
     this.id = id
     this.columns = columns
     this.pagination = pagination
     this.getMapping = getMapping
+    this.firstCheck = firstCheck
+  }
+  get FirstCheck() {
+    return this.firstCheck
+  }
+  set FirstCheck(value) {
+    this.firstCheck = value
   }
   get Columns() {
     return this.columns

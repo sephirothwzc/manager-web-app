@@ -4,9 +4,12 @@
       <v-spacer></v-spacer>
       <v-text-field v-model="vagueSearch" append-icon="search" :label="$t('vagueSearch')" single-line hide-details></v-text-field>
     </v-card-title>
-    <v-data-table class="elevation-1" :pagination.sync="gridView.Pagination" :headers="gridView.Columns" :items="desserts" :item-key="gridView.Id">
+    <v-data-table select-all class="elevation-1" :pagination.sync="gridView.Pagination" :headers="gridView.Columns" :items="desserts" :item-key="gridView.Id" v-model="selected">
       <template slot="headers" slot-scope="props">
         <tr>
+          <th v-show="gridView.FirstCheck">
+            <v-checkbox :input-value="props.all" :indeterminate="props.indeterminate" primary hide-details @click.native="toggleAll(props)"></v-checkbox>
+          </th>
           <th v-for="header in props.headers" :key="header.text" :class="sortClass(header)" @click="header.sortable?changeSort(header.value): undefined">
             {{ $t(header.text) }}
             <v-icon small>arrow_upward</v-icon>
@@ -14,7 +17,10 @@
         </tr>
       </template>
       <template slot="items" slot-scope="props">
-        <tr>
+        <tr :active="props.selected" @click="props.selected = !props.selected">
+          <td v-show="gridView.FirstCheck">
+            <v-checkbox :input-value="props.selected" primary hide-details></v-checkbox>
+          </td>
           <td v-for="(gvColumn,i) in gridView.Columns " :key="i " :class="gvColumn.ColumnClass ">{{props.item[gvColumn.DataField]}}</td>
         </tr>
       </template>
@@ -69,9 +75,12 @@ export default {
     totalRows: undefined
   }),
   methods: {
-    toggleAll() {
-      if (this.selected.length) this.selected = []
-      else this.selected = this.desserts.slice()
+    toggleAll(props) {
+      if (!props.all) {
+        this.selected = this.desserts.slice()
+      } else {
+        this.selected = []
+      }
     },
     changeSort(column) {
       let dd = false
