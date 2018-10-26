@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>
       <v-spacer></v-spacer>
-      <v-text-field v-model="vagueSearch" append-icon="search" :label="$t('vagueSearch')" single-line hide-details></v-text-field>
+      <v-text-field @click:append="vagueSearchClick" v-model="vagueSearch" append-icon="search" :label="$t('vagueSearch')" single-line hide-details></v-text-field>
     </v-card-title>
     <v-data-table select-all class="elevation-1" :pagination.sync="gridView.Pagination" :headers="gridView.Columns" :items="desserts" :item-key="gridView.Id" v-model="selected">
       <template slot="headers" slot-scope="props">
@@ -37,6 +37,9 @@ import GridView from '../commons/grid-view.js'
  * 自定义v-data-table
  */
 export default {
+  model: {
+    prop: 'gridView'
+  },
   props: {
     gridView: {
       // 校验是否 grid-view对象
@@ -53,6 +56,7 @@ export default {
     }
   },
   data: () => ({
+    dataGridView: undefined,
     /**
      * 查询条件
      */
@@ -74,7 +78,41 @@ export default {
      */
     totalRows: undefined
   }),
+  watch: {
+    gridView: {
+      handler(value) {
+        this.dataGridView = value
+      },
+      deep: true
+    },
+    dataGridView: {
+      handler(value) {
+        this.$set('input', value)
+      }
+    },
+    // 'gridView.Pagination': {
+    //   handler(pagination) {
+    //     // 查询
+    //     this.loadData()
+    //   },
+    //   deep: true
+    // },
+    loadAction(fun) {
+      if (fun) {
+        this.loadData = fun
+      }
+    }
+  },
   methods: {
+    /**
+     * 模糊查询
+     */
+    vagueSearchClick() {
+      // this.
+    },
+    /**
+     * 全选
+     */
     toggleAll(props) {
       if (!props.all) {
         this.selected = this.desserts.slice()
@@ -82,6 +120,9 @@ export default {
         this.selected = []
       }
     },
+    /**
+     * 改变排序
+     */
     changeSort(column) {
       let dd = false
       if (this.gridView.Pagination.sortBy === column) {
@@ -98,6 +139,9 @@ export default {
       }
       this.gridView.Pagination.descending = dd
     },
+    /**
+     * 生成列标头样式
+     */
     sortClass(header) {
       let descIcon = ''
       !this.gridView.Pagination.descending ||
@@ -125,20 +169,6 @@ export default {
           this.desserts = data.list
           this.totalRows = data.total
         })
-    }
-  },
-  watch: {
-    'gridView.Pagination': {
-      handler(pagination) {
-        // 查询
-        this.loadData()
-      },
-      deep: true
-    },
-    loadAction(fun) {
-      if (fun) {
-        this.loadData = fun
-      }
     }
   }
 }

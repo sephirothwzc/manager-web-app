@@ -32,7 +32,7 @@
                       <v-flex xs12 sm6 lg6 xl6>
                         <!-- type类型文本框还是密码 @click 事件绑定methods或者直接写方法体 -->
                         <!-- :rules 校验规则，调用封装的 form-utils对象的方法 -->
-                        <v-text-field v-model="passWord" :type="showPW ? 'text' : 'password'" @click:append="showPW = !showPW" :append-icon="showPW ? 'visibility_off' : 'visibility'" :rules="formUtils.rules({length:5})" :label="$t('passWord')"></v-text-field>
+                        <v-text-field validate-on-blur v-model="passWord" :type="showPW ? 'text' : 'password'" @click:append="showPW = !showPW" :append-icon="showPW ? 'visibility_off' : 'visibility'" :rules="formUtils.rules({length:5})" :label="$t('passWord')"></v-text-field>
                       </v-flex>
                     </v-layout>
                   </v-form>
