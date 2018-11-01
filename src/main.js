@@ -10,6 +10,8 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import i18n from './i18n'
 // toasted https://github.com/shakee93/vue-toasted
 import Toasted from 'vue-toasted'
+// 路由守卫
+import './router-module/router-guards.js'
 
 if (process.env.NODE_ENV === 'development') {
   // dev

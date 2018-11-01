@@ -145,7 +145,7 @@ export default {
     })
   },
   created() {
-    this.$store.getters['Main/User'] || this.$router.push('/login')
+    // this.$store.getters['Main/User'] || this.$router.push('/login')
   },
   mounted() {
     this.pageInit()
