@@ -1,17 +1,17 @@
 <template>
   <v-app>
     <!-- 主左侧导航 -->
-    <v-navigation-drawer :disable-route-watcher="true" persistent :mini-variant="miniVariant" :clipped="clipped" v-model="drawer" enable-resize-watcher fixed app>
+    <v-navigation-drawer :disable-route-watcher="true" persistent :mini-variant="miniVariant" :clipped="clipped" v-model="drawer" fixed app>
       <!-- 头像 -->
       <v-toolbar flat class="transparent">
         <v-list class="pa-0">
           <v-list-tile avatar>
             <v-list-tile-avatar>
-              <img :src.sync="user.headPortrait">
+              <img :src.sync="comUser.headPortrait">
             </v-list-tile-avatar>
 
             <v-list-tile-content>
-              <v-list-tile-title>{{user.realName}}</v-list-tile-title>
+              <v-list-tile-title>{{comUser.realName}}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -88,11 +88,13 @@
     </v-toolbar>
     <!-- 内容区域 -->
     <v-content>
-      <!-- <v-progress-linear v-if="ajaxLoad" :indeterminate="true" :active="ajaxLoad" height="3"></v-progress-linear> -->
-      <w-nav-breadcrumbs></w-nav-breadcrumbs>
-      <transition name="scale-transition">
-        <router-view/>
-      </transition>
+      <v-container fluid>
+        <!-- <v-progress-linear v-if="ajaxLoad" :indeterminate="true" :active="ajaxLoad" height="3"></v-progress-linear> -->
+        <w-nav-breadcrumbs></w-nav-breadcrumbs>
+        <transition name="scale-transition">
+          <router-view/>
+        </transition>
+      </v-container>
     </v-content>
     <!-- 右侧区域 用于消息列表 -->
     <!-- <v-navigation-drawer temporary :right="right" v-model="rightDrawer" fixed app>
@@ -127,7 +129,7 @@ export default {
   data() {
     return {
       clipped: false,
-      drawer: true,
+      drawer: null,
       fixed: false,
       // 导航菜单数据源，图标、链接、名称（i18n）
       navItems: [],
@@ -140,9 +142,11 @@ export default {
   computed: {
     // 解构vuex状态绑定
     ...mapState({
-      ajaxLoad: state => state.ajaxLoad,
-      user: state => state.user
-    })
+      ajaxLoad: state => state.ajaxLoad
+    }),
+    comUser() {
+      return this.$store.getters['Main/User']
+    }
   },
   created() {
     // this.$store.getters['Main/User'] || this.$router.push('/login')

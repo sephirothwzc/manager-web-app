@@ -87,16 +87,17 @@ export default {
     },
     dataGridView: {
       handler(value) {
-        this.$set('input', value)
-      }
+        !value || this.$emit('input', value)
+      },
+      deep: true
     },
-    // 'gridView.Pagination': {
-    //   handler(pagination) {
-    //     // 查询
-    //     this.loadData()
-    //   },
-    //   deep: true
-    // },
+    'gridView.Pagination': {
+      handler(pagination) {
+        // 查询
+        this.loadData()
+      },
+      deep: true
+    },
     loadAction(fun) {
       if (fun) {
         this.loadData = fun
@@ -108,7 +109,7 @@ export default {
      * 模糊查询
      */
     vagueSearchClick() {
-      // this.
+      this.$set(this.dataGridView.Pagination, 'page', 1)
     },
     /**
      * 全选

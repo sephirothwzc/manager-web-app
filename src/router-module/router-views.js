@@ -3,10 +3,14 @@
  * @Author: 吴占超
  * @Date: 2018-10-19 14:36:44
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-21 17:40:32
+ * @Last Modified time: 2018-11-04 21:04:07
  */
 import Main from '../pages/Main.vue'
 export default [
+  {
+    path: '/googleContacts',
+    component: () => import('../pages/googleContacts.vue')
+  },
   {
     path: '/system',
     component: Main,
