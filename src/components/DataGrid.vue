@@ -1,9 +1,18 @@
 <template>
   <v-card>
-    <v-card-title>
+    <v-toolbar flat>
+      <v-toolbar-items>
+        <v-btn flat>Link One</v-btn>
+        <v-btn flat>Link Two</v-btn>
+        <v-btn flat>Link Three</v-btn>
+      </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-text-field @click:append="vagueSearchClick" v-model="vagueSearch" append-icon="search" :label="$t('vagueSearch')" single-line hide-details></v-text-field>
-    </v-card-title>
+    </v-toolbar>
+    <!-- <v-card-title>
+      <v-spacer></v-spacer>
+      <v-text-field @click:append="vagueSearchClick" v-model="vagueSearch" append-icon="search" :label="$t('vagueSearch')" single-line hide-details></v-text-field>
+    </v-card-title> -->
     <v-data-table select-all class="elevation-1" :pagination.sync="gridView.Pagination" :headers="gridView.Columns" :items="desserts" :item-key="gridView.Id" v-model="selected">
       <template slot="headers" slot-scope="props">
         <tr>
@@ -53,6 +62,18 @@ export default {
      */
     loadAction: {
       type: Function
+    },
+    /**
+     * 标准按钮列表[add,upd,del,exp]
+     */
+    buttonItem: {
+      type: Array
+    },
+    /**
+     * 自定义按钮 ActionButton list
+     */
+    customButton: {
+      type: Array
     }
   },
   data: () => ({

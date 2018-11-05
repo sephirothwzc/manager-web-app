@@ -1,13 +1,5 @@
 <template>
   <v-container fluid grid-list-xl>
-    <v-expansion-panel>
-      <v-expansion-panel-content>
-        <div slot="header">{{$t('advancedQuery')}}</div>
-        <v-card>
-          <v-card-text></v-card-text>
-        </v-card>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
     <w-data-grid :grid-view="gridview"></w-data-grid>
   </v-container>
 </template>
