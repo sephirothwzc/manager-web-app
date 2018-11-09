@@ -158,7 +158,9 @@ export default {
     ...mapActions(['loginSuccess', 'logoutSuccess']),
     pageInit() {
       // 加载导航
-      this.axios.get(`sys-user/navigation`).then(data => (this.navItems = data))
+      this.$axios
+        .get(`sys-user/navigation`)
+        .then(data => (this.navItems = data))
     }
   }
 }

@@ -214,7 +214,7 @@ export default {
      * ajax加载事件，如果有loadAction 则替换当前对象
      */
     loadData() {
-      this.axios
+      this.$axios
         .extendGet(this.gridView.GetMapping, {
           vagueSearch: this.vagueSearch,
           ...this.formObject,

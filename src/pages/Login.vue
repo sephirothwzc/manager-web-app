@@ -99,7 +99,7 @@ export default {
      * 加载页面
      */
     pageInit() {
-      this.axios.extendGet('image/login-carousel').then(data => {
+      this.$axios.extendGet('image/login-carousel').then(data => {
         this.items = data
       })
     },
@@ -119,7 +119,7 @@ export default {
       // 设置登陆状态
       this.sumbitStart = true
       // 登陆请求
-      this.axios
+      this.$axios
         .post('sys-user/login', {
           userName: this.userName,
           passWord: this.passWord

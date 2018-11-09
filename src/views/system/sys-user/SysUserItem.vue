@@ -37,7 +37,26 @@ export default {
     },
     formUtils: new FormUtils()
   }),
+  created() {
+    this.initPage()
+  },
   methods: {
+    /**
+     * 初始化页面加载
+     */
+    initPage() {
+      if (!this.$route.params.id) return
+      this.initformDo(this.$route.params.id)
+    },
+    /**
+     * 根据入参获取当前页面formDo
+     */
+    initformDo(id) {
+      this.$axios
+        .get(`sys-user/${id}`)
+        .then(p => (this.formDo = p))
+        .catch(error => console.log(error.message))
+    },
     /**
      * 保存按钮
      */
@@ -50,7 +69,7 @@ export default {
       }
       this.loading = true
       // 登陆请求
-      this.axios
+      this.$axios
         .post('sys-user/save', this.formDo)
         .then(p => {
           this.$toasted.success(
