@@ -2,9 +2,9 @@
   <v-card>
     <v-toolbar flat>
       <v-toolbar-items>
-        <v-btn flat>Link One</v-btn>
-        <v-btn flat>Link Two</v-btn>
-        <v-btn flat>Link Three</v-btn>
+        <v-btn v-if="btnAdd" flat :to="addPath">{{$t("btnAdd")}}</v-btn>
+        <v-btn v-if="btnUpd" flat :to="updPath">{{$t("btnUpd")}}</v-btn>
+        <v-btn v-if="btnDel" flat>{{$t("btnDel")}}</v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-text-field @click:append="vagueSearchClick" v-model="vagueSearch" append-icon="search" :label="$t('vagueSearch')" single-line hide-details></v-text-field>
@@ -74,6 +74,27 @@ export default {
      */
     customButton: {
       type: Array
+    },
+    /**
+     * 显示新增
+     */
+    btnAdd: {
+      type: Boolean,
+      default: true
+    },
+    /**
+     * 显示修改
+     */
+    btnUpd: {
+      type: Boolean,
+      default: true
+    },
+    /**
+     * 显示删除
+     */
+    btnDel: {
+      type: Boolean,
+      default: true
     }
   },
   data: () => ({
@@ -122,6 +143,18 @@ export default {
     loadAction(fun) {
       if (fun) {
         this.loadData = fun
+      }
+    }
+  },
+  computed: {
+    addPath() {
+      return `${this.$route.path}/add`
+    },
+    updPath() {
+      if (this.selected.length > 0) {
+        return `${this.$route.path}/upd/${this.selected[0][this.gridView.Id]}`
+      } else {
+        return undefined
       }
     }
   },

@@ -19,7 +19,7 @@ export default {
       let fullpath = this.$route.matched[this.$route.matched.length - 1].path
       let list = fullpath.split('/')
       return _(list)
-        .filter(p => p)
+        .filter(p => p && p[0] !== ':')
         .map(p => {
           tempPath = `${tempPath}/${p}`
           return {

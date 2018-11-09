@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-15 16:57:54
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-25 15:24:59
+ * @Last Modified time: 2018-11-09 22:19:10
  */
 import Mock from 'mockjs'
 
@@ -69,4 +69,8 @@ Mock.mock(/sys-user?[^]/, 'get', param => {
     ]
   }).list
   return { list, total: 10 }
+})
+
+Mock.mock('sys-user/save', 'post', param => {
+  return param
 })

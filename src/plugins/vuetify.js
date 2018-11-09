@@ -20,7 +20,7 @@ Vue.use(Vuetify, {
   //   warning: '#FFC107'
   // },
   customProperties: true,
-  iconfont: 'fa',
+  iconfont: 'md',
   lang: {
     t: (key, ...params) => vuetifyI18n.t(key, params)
   }

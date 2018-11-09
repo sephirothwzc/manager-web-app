@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-19 14:36:44
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-11-04 21:04:07
+ * @Last Modified time: 2018-11-08 21:25:04
  */
 import Main from '../pages/Main.vue'
 export default [
@@ -20,7 +20,11 @@ export default [
         component: () => import('../views/system/sys-user/SysUserManager.vue')
       },
       {
-        path: 'sys-user-manager/item',
+        path: 'sys-user-manager/add',
+        component: () => import('../views/system/sys-user/SysUserItem.vue')
+      },
+      {
+        path: 'sys-user-manager/upd/:id',
         component: () => import('../views/system/sys-user/SysUserItem.vue')
       },
       {

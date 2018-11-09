@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-13 13:12:36
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-17 19:05:51
+ * @Last Modified time: 2018-11-08 21:58:12
  */
 import i18n from '../i18n'
 
@@ -35,15 +35,29 @@ export default class FormUtils {
    *
    * @memberOf FormUtils
    */
-  rules(param = { required: true, length: 0 }) {
+  rules(param = { required: true, minLength: 0, maxLength: 50 }) {
     // 基础校验
     let rules = []
     // 非空校验
-    !param.required || rules.push(v => !this.isBlank(v) || i18n.t('roules.required'))
+    !param.required ||
+      rules.push(v => !this.isBlank(v) || i18n.t('roules.required'))
     // 长度校验
-    param.length <= 0 ||
+    !param.minLength ||
+      param.minLength <= 0 ||
       rules.push(
-        v => this.isBlank(v) || (v && v.length >= param.length) || `${i18n.t('roules.length')}${param.length}`
+        v =>
+          this.isBlank(v) ||
+          (v && v.length >= param.minLength) ||
+          `${i18n.t('roules.minLength')}${param.minLength}`
+      )
+    // 长度校验
+    !param.maxLength ||
+      param.maxLength <= 0 ||
+      rules.push(
+        v =>
+          this.isBlank(v) ||
+          (v && v.length <= param.maxLength) ||
+          `${i18n.t('roules.maxLength')}${param.maxLength}`
       )
     return rules
   }

@@ -64,3 +64,5 @@ npm run test:unit
 - 调用全局的 afterEach 钩子。
 - 触发 DOM 更新。
 - 用创建好的实例调用 beforeRouteEnter 守卫中传给 next 的回调函数。
+
+3. 只有 2 级路由以上组件（view）允许 created 根据 route 参数进行加载，其他子组件采用 props+watch 加载
