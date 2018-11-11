@@ -4,7 +4,7 @@
       <v-toolbar-items>
         <v-btn v-if="btnAdd" flat :to="addPath">{{$t("btnAdd")}}</v-btn>
         <v-btn v-if="btnUpd" flat :to="updPath">{{$t("btnUpd")}}</v-btn>
-        <v-btn v-if="btnDel" flat>{{$t("btnDel")}}</v-btn>
+        <v-btn v-if="btnDel" flat @click="btnDelClick">{{$t("btnDel")}}</v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-text-field @click:append="vagueSearchClick" v-model="vagueSearch" append-icon="search" :label="$t('vagueSearch')" single-line hide-details></v-text-field>
@@ -42,6 +42,7 @@
 
 <script>
 import GridView from '../commons/grid-view.js'
+import _ from 'lodash'
 /**
  * 自定义v-data-table
  */
@@ -224,6 +225,19 @@ export default {
           this.desserts = data.list
           this.totalRows = data.total
         })
+    },
+    /**
+     * 删除按点击删除事件
+     */
+    btnDelClick() {
+      if (this.selected.length <= 0) return
+      let ids = _(this.selected)
+        .map(p => p.id)
+        .value()
+      this.$axios
+        .post(this.dataGridView.DelMapping, ids)
+        .then(data => console.log(ids))
+        .catch(err => console.log(err))
     }
   }
 }

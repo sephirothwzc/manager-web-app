@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-15 16:57:54
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-11-09 22:19:10
+ * @Last Modified time: 2018-11-11 23:05:30
  */
 import Mock from 'mockjs'
 
@@ -58,7 +58,7 @@ Mock.mock('sys-user/navigation', 'get', param => {
 /**
  * 用户查询
  */
-Mock.mock(/sys-user?[^]/, 'get', param => {
+Mock.mock(/sys-user\/find\?[^]/, 'get', param => {
   let list = Mock.mock({
     'list|10': [
       {
@@ -71,6 +71,20 @@ Mock.mock(/sys-user?[^]/, 'get', param => {
   return { list, total: 10 }
 })
 
+/**
+ * 用户保存
+ */
 Mock.mock('sys-user/save', 'post', param => {
   return param
+})
+
+/**
+ * 根据id获取
+ */
+Mock.mock(/sys-user\/find\/[^]/, 'get', param => {
+  return { userCode: 'userCode1', userName: 'userName1', id: 1111 }
+})
+
+Mock.mock('sys-user/del', 'post', param => {
+  return 1
 })

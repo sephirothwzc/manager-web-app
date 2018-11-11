@@ -66,3 +66,10 @@ npm run test:unit
 - 用创建好的实例调用 beforeRouteEnter 守卫中传给 next 的回调函数。
 
 3. 只有 2 级路由以上组件（view）允许 created 根据 route 参数进行加载，其他子组件采用 props+watch 加载
+4. 后端请求分类
+
+- find 查询
+- save 保存
+- add 新增
+- upd 修改
+- del 删除

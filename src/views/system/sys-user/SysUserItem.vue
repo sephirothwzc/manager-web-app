@@ -53,7 +53,7 @@ export default {
      */
     initformDo(id) {
       this.$axios
-        .get(`sys-user/${id}`)
+        .get(`sys-user/find/${id}`)
         .then(p => (this.formDo = p))
         .catch(error => console.log(error.message))
     },

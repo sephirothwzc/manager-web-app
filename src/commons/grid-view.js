@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-22 21:36:17
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-25 15:49:01
+ * @Last Modified time: 2018-11-11 22:59:10
  */
 import { validKey } from '../utils/common-utils.js'
 export default class GridView {
@@ -13,6 +13,7 @@ export default class GridView {
    *     id = 'id',
    *     columns = validKey('columns'),
    *     getMapping, // url地址
+   *     delMapping, // 删除url
    *     pagination = {
    *       descending: true,
    *       page: 1,
@@ -30,6 +31,7 @@ export default class GridView {
     id = 'id',
     columns = validKey('columns'),
     getMapping,
+    delMapping = validKey('delMapping'),
     pagination = {
       descending: true,
       page: 1,
@@ -44,6 +46,7 @@ export default class GridView {
     this.columns = columns
     this.pagination = pagination
     this.getMapping = getMapping
+    this.delMapping = delMapping
     this.firstCheck = firstCheck
   }
   get FirstCheck() {
@@ -72,5 +75,11 @@ export default class GridView {
   }
   set GetMapping(value) {
     this.getMapping = value
+  }
+  get DelMapping() {
+    return this.delMapping
+  }
+  set DelMapping(value) {
+    this.delMapping = value
   }
 }
