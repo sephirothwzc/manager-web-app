@@ -23,8 +23,8 @@ export default {
         new DataGridColumn({ text: 'userCode' }),
         new DataGridColumn({ text: 'notes' })
       ],
-      getMapping: 'sys-user/find',
-      delMapping: 'sys-user/del'
+      getMapping: '/sys-user/find',
+      delMapping: '/sys-user/del'
     })
   })
 }

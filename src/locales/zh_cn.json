@@ -17,13 +17,16 @@
   },
   "toasted": {
     "rules": "请检查输入项！",
-    "saveSuccess": "保存成功！"
+    "saveSuccess": "保存成功！",
+    "delSuccess": "删除成功"
   },
   "system": "系统管理",
   "system-manager": "系统管理",
   "sys-user-manager": "用户管理",
   "sys-role": "角色",
   "sys-role-manager": "角色管理",
+  "app-manager": "项目管理",
+  "home-manager": "主页管理",
   "home": "主页",
   "userCode": "用户编码",
   "notes": "备注",
@@ -31,5 +34,11 @@
   "btnUpd": "修改",
   "btnDel": "删除",
   "add": "新增",
-  "upd": "修改"
+  "upd": "修改",
+  "title": "标题",
+  "content": "内容",
+  "toUrl": "跳转地址",
+  "imageUrl": "图片地址",
+  "toptip": "提示",
+  "sortNumber": "排序码"
 }

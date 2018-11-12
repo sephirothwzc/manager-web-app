@@ -68,7 +68,6 @@ export default {
         )
       }
       this.loading = true
-      // 登陆请求
       this.$axios
         .post('sys-user/save', this.formDo)
         .then(p => {

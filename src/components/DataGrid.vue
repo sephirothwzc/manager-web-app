@@ -43,6 +43,7 @@
 <script>
 import GridView from '../commons/grid-view.js'
 import _ from 'lodash'
+import ToastedUtils from '../utils/toasted-utils.js'
 /**
  * 自定义v-data-table
  */
@@ -236,7 +237,12 @@ export default {
         .value()
       this.$axios
         .post(this.dataGridView.DelMapping, ids)
-        .then(data => console.log(ids))
+        .then(data =>
+          this.$toasted.success(
+            this.$t('toasted.delSuccess'),
+            ToastedUtils.SuccessOption
+          )
+        )
         .catch(err => console.log(err))
     }
   }

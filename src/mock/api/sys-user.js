@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-15 16:57:54
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-11-11 23:05:30
+ * @Last Modified time: 2018-11-12 21:12:32
  */
 import Mock from 'mockjs'
 
@@ -33,8 +33,7 @@ Mock.mock('sys-user/navigation', 'get', param => {
         { icon: 'event', title: 'sys-user-manager', path: 'sys-user-manager' },
         {
           icon: 'note',
-          title: 'sys-role',
-          // 二级导航如果包含子集 path是不起作用的 三级菜单情况下 二级菜单没有 to
+          title: 'sys-role', // 二级导航如果包含子集 path是不起作用的 三级菜单情况下 二级菜单没有 to
           path: 'sys-role',
           children: [
             {
@@ -48,8 +47,9 @@ Mock.mock('sys-user/navigation', 'get', param => {
     },
     {
       icon: 'fas fa-shapes',
-      title: 'system-manager',
-      children: [{ icon: 'event', title: 'sys-user-manager' }]
+      title: 'app-manager',
+      path: 'app-manager',
+      children: [{ icon: 'event', title: 'home-manager', path: 'home-manager' }]
     }
   ]
   return navItems
