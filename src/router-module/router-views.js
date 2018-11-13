@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-19 14:36:44
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-11-12 21:10:53
+ * @Last Modified time: 2018-11-13 23:17:02
  */
 import Main from '../pages/Main.vue'
 export default [
@@ -38,9 +38,19 @@ export default [
     component: Main,
     children: [
       {
-        // 主页管理
-        path: 'home-manager',
-        component: () => import('../views/app-manager/HomeManager.vue')
+        // 主页广告管理
+        path: 'advert-manager',
+        component: () => import('../views/app-manager/AdvertiseManager.vue')
+      },
+      {
+        // 主页广告新增
+        path: 'advert-manager/add',
+        component: () => import('../views/app-manager/AdvertisementItem.vue')
+      },
+      {
+        // 主页广告修改
+        path: 'advert-manager/upd/:id',
+        component: () => import('../views/app-manager/AdvertisementItem.vue')
       }
     ]
   }

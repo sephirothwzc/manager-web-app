@@ -1,5 +1,7 @@
 <template>
   <v-container fluid grid-list-xl>
+    <!-- Advertisement 广告 -->
+    <v-subheader>{{$t('advertisement')}}</v-subheader>
     <w-data-grid :grid-view="gridview"></w-data-grid>
   </v-container>
 </template>
@@ -10,7 +12,7 @@ import DataGrid from '../../components/DataGrid.vue'
 import GridView from '../../commons/grid-view.js'
 import DataGridColumn from '../../commons/data-grid-column.js'
 /**
- * 主页管理
+ * 主页广告管理
  */
 export default {
   components: {

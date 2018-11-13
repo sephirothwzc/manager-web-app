@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-11-12 22:00:58
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-11-12 22:16:04
+ * @Last Modified time: 2018-11-13 23:20:50
  */
 import Mock from 'mockjs'
 
@@ -22,4 +22,30 @@ Mock.mock(/app-advertisement\/find\?[^]/, 'get', param => {
     ]
   }).list
   return { list, total: 10 }
+})
+
+Mock.mock('app-advertisement/save', 'post', param => {
+  return param
+})
+
+/**
+ * 根据id获取
+ */
+Mock.mock(/app-advertisement\/find\/[^]/, 'get', param => {
+  return {
+    id: 1,
+    title: 'title' + '@string("title", 4, 8)',
+    content: 'content' + '@string("content", 4, 8)',
+    toUrl: 'toUrl' + '@string("content", 4, 8)',
+    imageUrl: 'imageUrl' + '@string("imageUrl", 4, 8)',
+    toptip: 'toptip' + '@string("toptip", 4, 8)',
+    sortNumber: 10
+  }
+})
+
+/**
+ * 批量删除
+ */
+Mock.mock('/app-advertisement/del', 'post', param => {
+  return 1
 })

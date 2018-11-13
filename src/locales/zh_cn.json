@@ -27,6 +27,7 @@
   "sys-role-manager": "角色管理",
   "app-manager": "项目管理",
   "home-manager": "主页管理",
+  "advert-manager": "主页广告",
   "home": "主页",
   "userCode": "用户编码",
   "notes": "备注",
@@ -40,5 +41,6 @@
   "toUrl": "跳转地址",
   "imageUrl": "图片地址",
   "toptip": "提示",
-  "sortNumber": "排序码"
+  "sortNumber": "排序码",
+  "advertisement": "广告管理"
 }
