@@ -18,7 +18,12 @@
   "toasted": {
     "rules": "请检查输入项！",
     "saveSuccess": "保存成功！",
-    "delSuccess": "删除成功"
+    "delSuccess": "删除成功",
+    "close": "关闭",
+    "DataSaved": "数据保存",
+    "Canceled": "取消",
+    "DialogOpened": "修改框打开",
+    "DialogClosed": "对话框关闭"
   },
   "system": "系统管理",
   "system-manager": "系统管理",
@@ -42,5 +47,6 @@
   "imageUrl": "图片地址",
   "toptip": "提示",
   "sortNumber": "排序码",
-  "advertisement": "广告管理"
+  "advertisement": "广告管理",
+  "advertType": "广告类别"
 }

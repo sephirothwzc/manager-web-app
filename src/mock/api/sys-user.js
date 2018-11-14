@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-15 16:57:54
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-11-13 23:22:34
+ * @Last Modified time: 2018-11-14 20:59:44
  */
 import Mock from 'mockjs'
 
@@ -87,6 +87,9 @@ Mock.mock(/sys-user\/find\/[^]/, 'get', param => {
   return { userCode: 'userCode1', userName: 'userName1', id: 1111 }
 })
 
+/**
+ * 删除
+ */
 Mock.mock('/sys-user/del', 'post', param => {
   return 1
 })

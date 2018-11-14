@@ -30,13 +30,28 @@
           <td v-show="gridView.FirstCheck">
             <v-checkbox :input-value="props.selected" primary hide-details></v-checkbox>
           </td>
-          <td v-for="(gvColumn,i) in gridView.Columns " :key="i " :class="gvColumn.ColumnClass ">{{props.item[gvColumn.DataField]}}</td>
+          <td v-for="(gvColumn,i) in gridView.Columns " :key="i " :class="gvColumn.ColumnClass ">
+            <template v-if="gvColumn.IsEdit">
+              <v-edit-dialog :return-value.sync="props.item[gvColumn.DataField]" large lazy persistent @save="save" @cancel="cancel" @open="open" @close="close">
+                <div>{{ props.item[gvColumn.DataField] }}</div>
+                <div slot="input" class="mt-3 title">{{$t(gvColumn.text)}}</div>
+                <v-text-field slot="input" v-model="props.item[gvColumn.DataField]" label="Edit" single-line counter autofocus></v-text-field>
+              </v-edit-dialog>
+            </template>
+            <template v-if="!gvColumn.IsEdit">
+              {{props.item[gvColumn.DataField]}}
+            </template>
+          </td>
         </tr>
       </template>
       <v-alert slot="no-results" :value="true" color="error" icon="warning">
         "{{ vagueSearch }} "{{$t('noResults')}}
       </v-alert>
     </v-data-table>
+    <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
+      {{ snackText }}
+      <v-btn flat @click="snack = false">{{$t('toasted.close')}}</v-btn>
+    </v-snackbar>
   </v-card>
 </template>
 
@@ -120,7 +135,19 @@ export default {
     /**
      * 总行数
      */
-    totalRows: undefined
+    totalRows: undefined,
+    /**
+     * 小吃吧
+     */
+    snack: false,
+    /**
+     * 小吃吧颜色
+     */
+    snackColor: undefined,
+    /**
+     * 小吃吧文本
+     */
+    snackText: undefined
   }),
   watch: {
     gridView: {
@@ -244,6 +271,36 @@ export default {
           )
         )
         .catch(err => console.log(err))
+    },
+    /**
+     * 小吃吧保存
+     */
+    save() {
+      this.snack = true
+      this.snackColor = 'success'
+      this.snackText = this.$t('toasted.DataSaved')
+    },
+    /**
+     * 取消
+     */
+    cancel() {
+      this.snack = true
+      this.snackColor = 'error'
+      this.snackText = this.$t('toasted.Canceled')
+    },
+    /**
+     * 打开
+     */
+    open() {
+      this.snack = true
+      this.snackColor = 'info'
+      this.snackText = this.$t('toasted.DialogOpened')
+    },
+    /**
+     * 关闭
+     */
+    close() {
+      console.log('toasted.DialogClosed')
     }
   }
 }

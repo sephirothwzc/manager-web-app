@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-22 21:33:36
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-25 15:36:10
+ * @Last Modified time: 2018-11-14 22:50:51
  */
 import { validKey } from '../utils/common-utils.js'
 /**
@@ -22,7 +22,8 @@ export default class DataGridColumn {
    *     columnClass = 'justify-center',
    *     align = 'center',
    *     sortable = true,
-   *     width = undefined
+   *     width = undefined,
+   *     isEdit = false
    *   }
    *
    * @memberOf DataGridColumn
@@ -34,7 +35,8 @@ export default class DataGridColumn {
     columnClass = 'text-xs-center',
     align = 'center',
     sortable = true,
-    width = undefined
+    width = undefined,
+    isEdit = false
   }) {
     this.text = text
     if (value) {
@@ -51,6 +53,13 @@ export default class DataGridColumn {
     this.align = align
     this.sortable = sortable
     this.width = width
+    this.isEdit = isEdit
+  }
+  get IsEdit() {
+    return this.isEdit
+  }
+  set IsEdit(value) {
+    this.isEdit = value
   }
   /**
    * 表头文本

@@ -16,6 +16,10 @@
         <v-flex xs12 sm6 lg4 xl3>
           <v-text-field mask="#########" :label="$t('sortNumber')" v-model="formDo.sortNumber" :rules="formUtils.rules({maxLength:9})" counter="9" clearable validate-on-blur></v-text-field>
         </v-flex>
+        <!-- advertType -->
+        <v-flex xs12 sm6 lg4 xl3>
+          <v-select item-text="dictionaryItem" item-value="dictionaryDisplay" :label="$t('advertType')" :items="advertTypeItems"></v-select>
+        </v-flex>
         <v-flex xs12 sm12 lg12 xl12>
           <v-textarea :label="$t('toUrl')" v-model="formDo.toUrl" :rules="formUtils.rules({maxLength:2000})" counter="2000" clearable></v-textarea>
         </v-flex>
@@ -49,7 +53,9 @@ export default {
       content: undefined,
       toUrl: undefined,
       imageUrl: undefined
-    }
+    },
+    // 广告类别
+    advertTypeItems: []
   }),
   created() {
     this.initPage()
@@ -59,8 +65,18 @@ export default {
      * 初始化页面加载
      */
     initPage() {
+      this.initData()
       if (!this.$route.params.id) return
       this.initformDo(this.$route.params.id)
+    },
+    /**
+     * 加载页面需要的数据
+     */
+    initData() {
+      this.$axios
+        .get(`data-dictionary/find/advertType`)
+        .then(p => (this.advertTypeItems = p))
+        .catch(error => console.log(error.message))
     },
     /**
      * 根据入参获取当前页面formDo
