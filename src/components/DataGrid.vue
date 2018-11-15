@@ -32,13 +32,10 @@
           </td>
           <td v-for="(gvColumn,i) in gridView.Columns " :key="i " :class="gvColumn.ColumnClass ">
             <template v-if="gvColumn.IsEdit">
-              <v-edit-dialog :return-value.sync="props.item[gvColumn.DataField]" large lazy persistent @save="save" @cancel="cancel" @open="open" @close="close">
-                <div>{{ props.item[gvColumn.DataField] }}</div>
-                <div slot="input" class="mt-3 title">{{$t(gvColumn.text)}}</div>
-                <v-text-field slot="input" v-model="props.item[gvColumn.DataField]" label="Edit" single-line counter autofocus></v-text-field>
-              </v-edit-dialog>
+              <!-- 编辑 -->
+              <component v-bind:is="editControl(gvColumn.EditType)" v-model="props.item[gvColumn.DataField]" :gv-column="gvColumn"></component>
             </template>
-            <template v-if="!gvColumn.IsEdit">
+            <template v-else-if="!gvColumn.IsEdit">
               {{props.item[gvColumn.DataField]}}
             </template>
           </td>
@@ -48,10 +45,6 @@
         "{{ vagueSearch }} "{{$t('noResults')}}
       </v-alert>
     </v-data-table>
-    <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
-      {{ snackText }}
-      <v-btn flat @click="snack = false">{{$t('toasted.close')}}</v-btn>
-    </v-snackbar>
   </v-card>
 </template>
 
@@ -59,6 +52,7 @@
 import GridView from '../commons/grid-view.js'
 import _ from 'lodash'
 import ToastedUtils from '../utils/toasted-utils.js'
+import DataColumnEditInput from './DataColumnEditInput.vue'
 /**
  * 自定义v-data-table
  */
@@ -135,19 +129,7 @@ export default {
     /**
      * 总行数
      */
-    totalRows: undefined,
-    /**
-     * 小吃吧
-     */
-    snack: false,
-    /**
-     * 小吃吧颜色
-     */
-    snackColor: undefined,
-    /**
-     * 小吃吧文本
-     */
-    snackText: undefined
+    totalRows: undefined
   }),
   watch: {
     gridView: {
@@ -273,34 +255,15 @@ export default {
         .catch(err => console.log(err))
     },
     /**
-     * 小吃吧保存
+     * 获取编辑组件
      */
-    save() {
-      this.snack = true
-      this.snackColor = 'success'
-      this.snackText = this.$t('toasted.DataSaved')
-    },
-    /**
-     * 取消
-     */
-    cancel() {
-      this.snack = true
-      this.snackColor = 'error'
-      this.snackText = this.$t('toasted.Canceled')
-    },
-    /**
-     * 打开
-     */
-    open() {
-      this.snack = true
-      this.snackColor = 'info'
-      this.snackText = this.$t('toasted.DialogOpened')
-    },
-    /**
-     * 关闭
-     */
-    close() {
-      console.log('toasted.DialogClosed')
+    editControl(editType) {
+      switch (editType) {
+        case 'input':
+          return DataColumnEditInput
+        default:
+          return undefined
+      }
     }
   }
 }

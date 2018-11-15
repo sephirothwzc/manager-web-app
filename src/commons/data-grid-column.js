@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-22 21:33:36
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-11-14 22:50:51
+ * @Last Modified time: 2018-11-15 23:01:43
  */
 import { validKey } from '../utils/common-utils.js'
 /**
@@ -23,7 +23,8 @@ export default class DataGridColumn {
    *     align = 'center',
    *     sortable = true,
    *     width = undefined,
-   *     isEdit = false
+   *     isEdit = false,
+   *     editType = 'input'// input、select
    *   }
    *
    * @memberOf DataGridColumn
@@ -36,7 +37,8 @@ export default class DataGridColumn {
     align = 'center',
     sortable = true,
     width = undefined,
-    isEdit = false
+    isEdit = false,
+    editType = 'input'
   }) {
     this.text = text
     if (value) {
@@ -54,6 +56,13 @@ export default class DataGridColumn {
     this.sortable = sortable
     this.width = width
     this.isEdit = isEdit
+    this.editType = editType
+  }
+  get EditType() {
+    return this.editType
+  }
+  set EditType(value) {
+    this.editType = value
   }
   get IsEdit() {
     return this.isEdit

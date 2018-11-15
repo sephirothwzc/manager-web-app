@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-11-12 22:00:58
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-11-14 21:33:18
+ * @Last Modified time: 2018-11-15 23:40:48
  */
 import Mock from 'mockjs'
 
@@ -17,7 +17,8 @@ Mock.mock(/app-advertisement\/find\?[^]/, 'get', param => {
         toUrl: 'toUrl' + '@string("content", 4, 8)',
         imageUrl: 'imageUrl' + '@string("imageUrl", 4, 8)',
         toptip: 'toptip' + '@string("toptip", 4, 8)',
-        sortNumber: 10
+        sortNumber: 10,
+        advertType: ''
       }
     ]
   }).list
