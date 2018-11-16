@@ -1,6 +1,6 @@
 <template>
   <transition name="scale-transition">
-    <router-view/>
+    <router-view />
   </transition>
 </template>
 

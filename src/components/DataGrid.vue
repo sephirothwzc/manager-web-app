@@ -33,7 +33,7 @@
           <td v-for="(gvColumn,i) in gridView.Columns " :key="i " :class="gvColumn.ColumnClass ">
             <template v-if="gvColumn.IsEdit">
               <!-- 编辑 -->
-              <component v-bind:is="editControl(gvColumn.EditType)" v-model="props.item[gvColumn.DataField]" :gv-column="gvColumn"></component>
+              <component @transferSnack="transferSnack" v-bind:is="editControl(gvColumn.ColumnEdit)" v-model="props.item[gvColumn.DataField]" :gv-column="gvColumn"></component>
             </template>
             <template v-else-if="!gvColumn.IsEdit">
               {{props.item[gvColumn.DataField]}}
@@ -45,6 +45,10 @@
         "{{ vagueSearch }} "{{$t('noResults')}}
       </v-alert>
     </v-data-table>
+    <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
+      {{ snackText }}
+      <v-btn flat @click="snack = false">{{$t('toasted.close')}}</v-btn>
+    </v-snackbar>
   </v-card>
 </template>
 
@@ -129,7 +133,19 @@ export default {
     /**
      * 总行数
      */
-    totalRows: undefined
+    totalRows: undefined,
+    /**
+     * 小吃吧
+     */
+    snack: false,
+    /**
+     * 小吃吧颜色
+     */
+    snackColor: undefined,
+    /**
+     * 小吃吧文本
+     */
+    snackText: undefined
   }),
   watch: {
     gridView: {
@@ -170,6 +186,14 @@ export default {
     }
   },
   methods: {
+    /**
+     * 小吃吧调用
+     */
+    transferSnack(snackValue) {
+      this.snack = snackValue.snack
+      this.snackColor = snackValue.snackColor
+      this.snackText = snackValue.snackText
+    },
     /**
      * 模糊查询
      */
@@ -257,8 +281,8 @@ export default {
     /**
      * 获取编辑组件
      */
-    editControl(editType) {
-      switch (editType) {
+    editControl(dataGridColumnEdit) {
+      switch (dataGridColumnEdit.EditType) {
         case 'input':
           return DataColumnEditInput
         default:

@@ -3,9 +3,11 @@
  * @Author: 吴占超
  * @Date: 2018-10-22 21:33:36
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-11-15 23:01:43
+ * @Last Modified time: 2018-11-16 21:41:08
  */
 import { validKey } from '../utils/common-utils.js'
+import DataGridColumnEdit from '../commons/data-grid-column-edit.js'
+import FormUtils from '../utils/form-utils.js'
 /**
  * data grid column
  *
@@ -38,7 +40,9 @@ export default class DataGridColumn {
     sortable = true,
     width = undefined,
     isEdit = false,
-    editType = 'input'
+    columnEdit = new DataGridColumnEdit({
+      rules: new FormUtils().rules()
+    })
   }) {
     this.text = text
     if (value) {
@@ -56,13 +60,13 @@ export default class DataGridColumn {
     this.sortable = sortable
     this.width = width
     this.isEdit = isEdit
-    this.editType = editType
+    this.columnEdit = columnEdit
   }
-  get EditType() {
-    return this.editType
+  get ColumnEdit() {
+    return this.columnEdit
   }
-  set EditType(value) {
-    this.editType = value
+  set ColumnEdit(value) {
+    this.columnEdit = value
   }
   get IsEdit() {
     return this.isEdit
