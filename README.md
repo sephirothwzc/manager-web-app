@@ -32,6 +32,11 @@ npm run test:unit
 
 ## sephiroth
 
+如果使用谷歌图标
+// 图标 icon 引入 需要使用 sass-load
+// npm install sass-loader -D
+// npm install node-sass -D
+
 1. vue 方法放置顺序
 
    - components # 组件声明
