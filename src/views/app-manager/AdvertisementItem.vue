@@ -58,13 +58,13 @@ export default {
     advertTypeItems: []
   }),
   created() {
-    this.initPage()
+    this.pageInit()
   },
   methods: {
     /**
      * 初始化页面加载
      */
-    initPage() {
+    pageInit() {
       this.initData()
       if (!this.$route.params.id) return
       this.initformDo(this.$route.params.id)

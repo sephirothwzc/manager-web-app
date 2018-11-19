@@ -1,13 +1,8 @@
 <template>
-  <v-edit-dialog :return-value.sync="dataValue" large lazy persistent @save="save" @cancel="cancel" @open="open" @close="close">
+  <v-edit-dialog :return-value.sync="inputValue" large lazy persistent @save="save" @cancel="cancel" @open="open" @close="close">
     <div>{{ dataValue }}</div>
     <div slot="input" class="mt-3 title">{{$t(gvColumn.text)}}</div>
-    <v-text-field slot="input" v-model="inputValue" label="Edit" single-line counter autofocus></v-text-field>
-    <v-select slot="input" v-model="inputValue" label="Edit" autofocus></v-select>
-    <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
-      {{ snackText }}
-      <v-btn flat @click="snack = false">{{$t('toasted.close')}}</v-btn>
-    </v-snackbar>
+    <v-select slot="input" item-text="dictionaryItem" item-value="dictionaryDisplay" v-model="inputValue" label="Edit" autofocus :items="inputItems"></v-select>
   </v-edit-dialog>
 </template>
 
@@ -36,18 +31,7 @@ export default {
      * 文本输入
      */
     inputValue: undefined,
-    /**
-     * 小吃吧
-     */
-    snack: false,
-    /**
-     * 小吃吧颜色
-     */
-    snackColor: undefined,
-    /**
-     * 小吃吧文本
-     */
-    snackText: undefined
+    inputItems: undefined
   }),
   watch: {
     dataValue(value) {
@@ -57,35 +41,40 @@ export default {
       this.$emit('input', value)
     }
   },
+  async created() {
+    this.inputItems = await this.gvColumn.ColumnEdit.dataSource()
+  },
   methods: {
     /**
      * 小吃吧保存
      */
     save() {
-      this.snack = true
-      this.snackColor = 'success'
-      this.snackText = this.$t('toasted.DataSaved')
+      !this.gvColumn.saveAction || this.gvColumn.saveAction()
+      if (!this.gvColumn.ColumnEdit.SaveAction) return this.$emit('transferSnack', { snack: true, snackColor: 'success', snackText: this.$t('toasted.DataSaved') })
+      !this.gvColumn.ColumnEdit.SaveAction() ||
+        this.$emit('transferSnack', { snack: true, snackColor: 'success', snackText: this.$t('toasted.DataSaved') })
     },
     /**
      * 取消
      */
     cancel() {
-      this.snack = true
-      this.snackColor = 'error'
-      this.snackText = this.$t('toasted.Canceled')
+      !this.gvColumn.cancelAction || this.gvColumn.cancelAction()
+      if (!this.gvColumn.ColumnEdit.CancelAction) return this.$emit('transferSnack', { snack: true, snackColor: 'error', snackText: this.$t('toasted.Canceled') })
+      !this.gvColumn.ColumnEdit.CancelAction() ||
+        this.$emit('transferSnack', { snack: true, snackColor: 'error', snackText: this.$t('toasted.Canceled') })
     },
     /**
      * 打开
      */
     open() {
-      this.snack = true
-      this.snackColor = 'info'
-      this.snackText = this.$t('toasted.DialogOpened')
+      !this.gvColumn.openAction || this.gvColumn.openAction()
+      this.$emit('transferSnack', { snack: true, snackColor: 'info', snackText: this.$t('toasted.DialogOpened') })
     },
     /**
      * 关闭
      */
     close() {
+      !this.gvColumn.closeAction || this.gvColumn.closeAction()
       console.log('toasted.DialogClosed')
     }
   }

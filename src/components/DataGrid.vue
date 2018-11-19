@@ -57,6 +57,7 @@ import GridView from '../commons/grid-view.js'
 import _ from 'lodash'
 import ToastedUtils from '../utils/toasted-utils.js'
 import DataColumnEditInput from './DataColumnEditInput.vue'
+import DataColumnEditSelect from './DataColumnEditSelect.vue'
 /**
  * 自定义v-data-table
  */
@@ -68,6 +69,7 @@ export default {
     gridView: {
       // 校验是否 grid-view对象
       validator: value => {
+        if (value === undefined) return true
         return GridView.prototype.isPrototypeOf(value)
       },
       required: true
@@ -161,7 +163,7 @@ export default {
       deep: true
     },
     'gridView.Pagination': {
-      handler(pagination) {
+      handler(value) {
         // 查询
         this.loadData()
       },
@@ -285,6 +287,8 @@ export default {
       switch (dataGridColumnEdit.EditType) {
         case 'input':
           return DataColumnEditInput
+        case 'select':
+          return DataColumnEditSelect
         default:
           return undefined
       }

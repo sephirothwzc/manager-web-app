@@ -2,21 +2,24 @@
  * @Author: 吴占超
  * @Date: 2018-11-16 21:24:53
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-11-16 22:25:50
+ * @Last Modified time: 2018-11-18 17:59:44
  * 列表行编辑对象
  */
 export default class DataGridColumnEdit {
   /**
    * Creates an instance of DataGridColumnEdit.
    * @param {any} {
-   *     editType = 'input',// input\select
-   *     findItems = undefined,// get function?
+   *     editType = 'input',
+   *     findItems = undefined,
    *     label = 'Edit',
    *     returnObject = false,
    *     counter = undefined,
+   *     openAction = undefined,
+   *     closeAction = undefined,
    *     rules = undefined,
    *     saveAction = undefined,
-   *     cancelAction = undefined
+   *     cancelAction = undefined,
+   *     dataSource = undefined
    *   }
    *
    * @memberOf DataGridColumnEdit
@@ -27,9 +30,14 @@ export default class DataGridColumnEdit {
     label = 'Edit',
     returnObject = false,
     counter = undefined,
+    openAction = undefined,
+    closeAction = undefined,
     rules = undefined,
     saveAction = undefined,
-    cancelAction = undefined
+    cancelAction = undefined,
+    dataSource = undefined,
+    itemValue = 'dictionaryDisplay',
+    itemText = 'dictionaryItem'
   }) {
     this.editType = editType
     this.findItems = findItems
@@ -39,6 +47,23 @@ export default class DataGridColumnEdit {
     this.rules = rules
     this.saveAction = saveAction
     this.cancelAction = cancelAction
+    this.openAction = openAction
+    this.closeAction = closeAction
+    this.dataSource = dataSource
+    this.itemValue = itemValue
+    this.itemText = itemText
+  }
+  get ItemText() {
+    return this.itemText
+  }
+  set ItemText(value) {
+    this.itemText = value
+  }
+  get ItemValue() {
+    return this.itemValue
+  }
+  set ItemValue(value) {
+    this.itemValue = value
   }
   get EditType() {
     return this.editType
@@ -87,5 +112,17 @@ export default class DataGridColumnEdit {
   }
   set CancelAction(value) {
     this.cancelAction = value
+  }
+  get OpenAction() {
+    return this.openAction
+  }
+  set OpenAction(value) {
+    return (this.openAction = value)
+  }
+  get DataSource() {
+    return this.dataSource
+  }
+  set DataSource(value) {
+    this.dataSource = value
   }
 }
