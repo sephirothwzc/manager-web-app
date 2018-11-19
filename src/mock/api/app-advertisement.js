@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-11-12 22:00:58
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-11-15 23:40:48
+ * @Last Modified time: 2018-11-19 22:05:48
  */
 import Mock from 'mockjs'
 
@@ -49,4 +49,19 @@ Mock.mock(/app-advertisement\/find\/[^]/, 'get', param => {
  */
 Mock.mock('/app-advertisement/del', 'post', param => {
   return 1
+})
+
+/**
+ * 更新广告类别
+ */
+Mock.mock('/app-advertisement/put-advert-type', 'post', param => {
+  return {
+    id: 1,
+    title: 'title' + '@string("title", 4, 8)',
+    content: 'content' + '@string("content", 4, 8)',
+    toUrl: 'toUrl' + '@string("content", 4, 8)',
+    imageUrl: 'imageUrl' + '@string("imageUrl", 4, 8)',
+    toptip: 'toptip' + '@string("toptip", 4, 8)',
+    sortNumber: 10
+  }
 })

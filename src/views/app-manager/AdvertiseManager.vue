@@ -14,12 +14,22 @@ import DataGridColumn from '../../commons/data-grid-column.js'
 import DataGridColumnEdit from '../../commons/data-grid-column-edit.js'
 import FormUtils from '../../utils/form-utils.js'
 
+/**
+ * 加载广告类别 数据字典
+ */
 let dataSource = async function () {
   let data = await window.axios
-    .get(`data-dictionary/find/advertType`)
+    .get(`/data-dictionary/find/advertType`)
   return data
 }
-
+/**
+ * 保存事件
+ */
+let saveAction = async function (item) {
+  let resultPromise = await window.axios
+    .post(`/app-advertisement/put-advert-type`, { id: item.id, advertType: item.advertType })
+  return resultPromise
+}
 /**
  * 主页广告管理
  */
@@ -41,7 +51,8 @@ export default {
           columnEdit: new DataGridColumnEdit({
             editType: 'select',
             rules: new FormUtils().rules(),
-            dataSource: dataSource
+            dataSource: dataSource,
+            saveAction: saveAction
           })
         })
       ],

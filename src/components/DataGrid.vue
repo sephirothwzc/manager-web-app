@@ -33,7 +33,7 @@
           <td v-for="(gvColumn,i) in gridView.Columns " :key="i " :class="gvColumn.ColumnClass ">
             <template v-if="gvColumn.IsEdit">
               <!-- 编辑 -->
-              <component @transferSnack="transferSnack" v-bind:is="editControl(gvColumn.ColumnEdit)" v-model="props.item[gvColumn.DataField]" :gv-column="gvColumn"></component>
+              <component @transferSnack="transferSnack" v-bind:is="editControl(gvColumn.ColumnEdit)" v-model="props.item[gvColumn.DataField]" :gv-column="gvColumn" :data-row="props.item"></component>
             </template>
             <template v-else-if="!gvColumn.IsEdit">
               {{props.item[gvColumn.DataField]}}

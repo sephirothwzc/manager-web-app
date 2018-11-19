@@ -21,7 +21,17 @@ export default {
     dataValue: {
       required: true
     },
+    /**
+     * 列对象
+     */
     gvColumn: {
+      type: Object,
+      required: true
+    },
+    /**
+     * 行数据
+     */
+    dataRow: {
       type: Object,
       required: true
     }
@@ -49,33 +59,33 @@ export default {
      * 小吃吧保存
      */
     save() {
-      !this.gvColumn.saveAction || this.gvColumn.saveAction()
       if (!this.gvColumn.ColumnEdit.SaveAction) return this.$emit('transferSnack', { snack: true, snackColor: 'success', snackText: this.$t('toasted.DataSaved') })
-      !this.gvColumn.ColumnEdit.SaveAction() ||
+      !this.gvColumn.ColumnEdit.SaveAction(this.dataRow) ||
         this.$emit('transferSnack', { snack: true, snackColor: 'success', snackText: this.$t('toasted.DataSaved') })
     },
     /**
      * 取消
      */
     cancel() {
-      !this.gvColumn.cancelAction || this.gvColumn.cancelAction()
       if (!this.gvColumn.ColumnEdit.CancelAction) return this.$emit('transferSnack', { snack: true, snackColor: 'error', snackText: this.$t('toasted.Canceled') })
-      !this.gvColumn.ColumnEdit.CancelAction() ||
+      !this.gvColumn.ColumnEdit.CancelAction(this.dataRow) ||
         this.$emit('transferSnack', { snack: true, snackColor: 'error', snackText: this.$t('toasted.Canceled') })
     },
     /**
      * 打开
      */
     open() {
-      !this.gvColumn.openAction || this.gvColumn.openAction()
-      this.$emit('transferSnack', { snack: true, snackColor: 'info', snackText: this.$t('toasted.DialogOpened') })
+      if (!this.gvColumn.ColumnEdit.OpenAction) return this.$emit('transferSnack', { snack: true, snackColor: 'info', snackText: this.$t('toasted.DialogOpened') })
+      !this.gvColumn.ColumnEdit.OpenAction(this.dataRow) ||
+        this.$emit('transferSnack', { snack: true, snackColor: 'info', snackText: this.$t('toasted.DialogOpened') })
     },
     /**
      * 关闭
      */
     close() {
-      !this.gvColumn.closeAction || this.gvColumn.closeAction()
-      console.log('toasted.DialogClosed')
+      if (!this.gvColumn.ColumnEdit.CloseAction) return this.$emit('transferSnack', { snack: true, snackColor: 'info', snackText: this.$t('toasted.DialogClosed') })
+      !this.gvColumn.ColumnEdit.CloseAction(this.dataRow) ||
+        this.$emit('transferSnack', { snack: true, snackColor: 'info', snackText: this.$t('toasted.DialogClosed') })
     }
   }
 }
