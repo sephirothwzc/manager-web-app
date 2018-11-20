@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-19 14:36:44
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-11-13 23:17:02
+ * @Last Modified time: 2018-11-20 21:21:05
  */
 import Main from '../pages/Main.vue'
 export default [
@@ -30,6 +30,12 @@ export default [
       {
         path: 'sys-role-manager',
         component: () => import('../views/system/sys-role/SysRoleManager.vue')
+      },
+      // 数据字典
+      {
+        path: 'sys-data-dictionary',
+        component: () =>
+          import('../views/system/sys-data-dictionary/SysDataDictionary.vue')
       }
     ]
   },

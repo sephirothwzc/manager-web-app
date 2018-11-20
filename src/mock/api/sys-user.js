@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-15 16:57:54
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-11-14 20:59:44
+ * @Last Modified time: 2018-11-20 21:24:04
  */
 import Mock from 'mockjs'
 
@@ -42,6 +42,11 @@ Mock.mock('sys-user/navigation', 'get', param => {
               path: 'sys-role-manager'
             }
           ]
+        },
+        {
+          icon: 'event',
+          title: 'sys-data-dictionary',
+          path: 'sys-data-dictionary'
         }
       ]
     },
