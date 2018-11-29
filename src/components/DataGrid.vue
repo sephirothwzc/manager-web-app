@@ -2,38 +2,99 @@
   <v-card>
     <v-toolbar flat>
       <v-toolbar-items>
-        <v-btn v-if="btnAdd" flat :to="addPath">{{$t("btnAdd")}}</v-btn>
-        <v-btn v-if="btnUpd" flat :to="updPath">{{$t("btnUpd")}}</v-btn>
-        <v-btn v-if="btnDel" flat @click="btnDelClick">{{$t("btnDel")}}</v-btn>
+        <v-btn
+          v-if="btnAdd"
+          flat
+          :to="addPath"
+        >{{$t("btnAdd")}}</v-btn>
+        <v-btn
+          v-if="btnUpd"
+          flat
+          :to="updPath"
+        >{{$t("btnUpd")}}</v-btn>
+        <v-btn
+          v-if="btnDel"
+          flat
+          @click="btnDelClick"
+        >{{$t("btnDel")}}</v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
-      <v-text-field @click:append="vagueSearchClick" v-model="vagueSearch" append-icon="search" :label="$t('vagueSearch')" single-line hide-details></v-text-field>
+      <v-text-field
+        @click:append="vagueSearchClick"
+        v-model="vagueSearch"
+        append-icon="search"
+        :label="$t('vagueSearch')"
+        single-line
+        hide-details
+      ></v-text-field>
     </v-toolbar>
     <!-- <v-card-title>
       <v-spacer></v-spacer>
       <v-text-field @click:append="vagueSearchClick" v-model="vagueSearch" append-icon="search" :label="$t('vagueSearch')" single-line hide-details></v-text-field>
     </v-card-title> -->
-    <v-data-table select-all class="elevation-1" :pagination.sync="gridView.Pagination" :headers="gridView.Columns" :items="desserts" :item-key="gridView.Id" v-model="selected">
-      <template slot="headers" slot-scope="props">
+    <v-data-table
+      :select-all="gridView.FirstCheck"
+      class="elevation-1"
+      :pagination.sync="gridView.Pagination"
+      :headers="gridView.Columns"
+      :items="desserts"
+      :item-key="gridView.Id"
+      v-model="selected"
+    >
+      <template
+        slot="headers"
+        slot-scope="props"
+      >
         <tr>
           <th v-show="gridView.FirstCheck">
-            <v-checkbox :input-value="props.all" :indeterminate="props.indeterminate" primary hide-details @click.native="toggleAll(props)"></v-checkbox>
+            <v-checkbox
+              :input-value="props.all"
+              :indeterminate="props.indeterminate"
+              primary
+              hide-details
+              @click.native="toggleAll(props)"
+            ></v-checkbox>
           </th>
-          <th v-for="header in props.headers" :key="header.text" :class="sortClass(header)" @click="header.sortable?changeSort(header.value): undefined">
+          <th
+            v-for="header in props.headers"
+            :key="header.text"
+            :class="sortClass(header)"
+            @click="header.sortable?changeSort(header.value): undefined"
+          >
             {{ $t(header.text) }}
             <v-icon small>arrow_upward</v-icon>
           </th>
         </tr>
       </template>
-      <template slot="items" slot-scope="props">
-        <tr :active="props.selected" @click="props.selected = !props.selected">
+      <template
+        slot="items"
+        slot-scope="props"
+      >
+        <tr
+          :active="props.selected"
+          @click="props.selected = !props.selected"
+        >
           <td v-show="gridView.FirstCheck">
-            <v-checkbox :input-value="props.selected" primary hide-details></v-checkbox>
+            <v-checkbox
+              :input-value="props.selected"
+              primary
+              hide-details
+            ></v-checkbox>
           </td>
-          <td v-for="(gvColumn,i) in gridView.Columns " :key="i " :class="gvColumn.ColumnClass ">
+          <td
+            v-for="(gvColumn,i) in gridView.Columns "
+            :key="i "
+            :class="gvColumn.ColumnClass "
+          >
             <template v-if="gvColumn.IsEdit">
               <!-- 编辑 -->
-              <component @transferSnack="transferSnack" v-bind:is="editControl(gvColumn.ColumnEdit)" v-model="props.item[gvColumn.DataField]" :gv-column="gvColumn" :data-row="props.item"></component>
+              <component
+                @transferSnack="transferSnack"
+                v-bind:is="editControl(gvColumn.ColumnEdit)"
+                v-model="props.item[gvColumn.DataField]"
+                :gv-column="gvColumn"
+                :data-row="props.item"
+              ></component>
             </template>
             <template v-else-if="!gvColumn.IsEdit">
               {{props.item[gvColumn.DataField]}}
@@ -41,13 +102,25 @@
           </td>
         </tr>
       </template>
-      <v-alert slot="no-results" :value="true" color="error" icon="warning">
+      <v-alert
+        slot="no-results"
+        :value="true"
+        color="error"
+        icon="warning"
+      >
         "{{ vagueSearch }} "{{$t('noResults')}}
       </v-alert>
     </v-data-table>
-    <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
+    <v-snackbar
+      v-model="snack"
+      :timeout="3000"
+      :color="snackColor"
+    >
       {{ snackText }}
-      <v-btn flat @click="snack = false">{{$t('toasted.close')}}</v-btn>
+      <v-btn
+        flat
+        @click="snack = false"
+      >{{$t('toasted.close')}}</v-btn>
     </v-snackbar>
   </v-card>
 </template>
@@ -173,6 +246,20 @@ export default {
       if (fun) {
         this.loadData = fun
       }
+    },
+    selected: {
+      handler(value) {
+        if (!this.gridView.FirstCheck && this.selected.length > 1) {
+          // 单选
+          this.selected = [_.last(this.selected)]
+          return
+        }
+        this.$emit('eventChange', this.selected)
+      },
+      deep: true
+    },
+    formObject() {
+      this.loadData()
     }
   },
   computed: {

@@ -49,5 +49,10 @@
   "toptip": "提示",
   "sortNumber": "排序码",
   "advertisement": "广告管理",
-  "advertType": "广告类别"
+  "advertType": "广告类别",
+  "dictionaryCode": "类别编码",
+  "dictionaryDisplay": "类别名称",
+  "dictionaryItem": "字典项值",
+  "dictionaryItemDisplay": "字典项名称",
+  "remark": "备注"
 }
