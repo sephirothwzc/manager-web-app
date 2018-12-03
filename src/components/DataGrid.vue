@@ -5,7 +5,8 @@
         <v-btn
           v-if="btnAdd"
           flat
-          :to="addPath"
+          :to="clickBtnAdd? undefined: addPath"
+          @click="clickBtnAdd"
         >{{$t("btnAdd")}}</v-btn>
         <v-btn
           v-if="btnUpd"
@@ -171,6 +172,12 @@ export default {
     btnAdd: {
       type: Boolean,
       default: true
+    },
+    /**
+     * 新增事件，如果为空则会进行to跳转
+     */
+    clickBtnAdd: {
+      default: undefined
     },
     /**
      * 显示修改
