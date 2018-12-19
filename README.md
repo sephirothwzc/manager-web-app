@@ -78,3 +78,7 @@ npm run test:unit
 - add 新增
 - upd 修改
 - del 删除
+
+5. 错误码
+511 message
+500 前台自定义错误提示

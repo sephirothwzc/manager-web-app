@@ -3,22 +3,22 @@
  * @Author: 吴占超
  * @Date: 2018-10-15 16:57:54
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-11-20 21:24:04
+ * @Last Modified time: 2018-12-18 23:26:41
  */
 import Mock from 'mockjs'
 
 /**
  * 用户登陆
  */
-Mock.mock('sys-user/login', 'post', param => {
-  return {
-    id: 21009808789,
-    userName: 'admin',
-    userCode: '00001',
-    realName: '蒂法',
-    headPortrait: '/images/head-portrait/timg.jpeg'
-  }
-})
+// Mock.mock('sys-user/login', 'post', param => {
+//   return {
+//     id: 21009808789,
+//     userName: 'admin',
+//     userCode: '00001',
+//     realName: '蒂法',
+//     headPortrait: '/images/head-portrait/timg.jpeg'
+//   }
+// })
 
 /**
  * 导航菜单
@@ -65,18 +65,18 @@ Mock.mock('sys-user/navigation', 'get', param => {
 /**
  * 用户查询
  */
-Mock.mock(/sys-user\/find\?[^]/, 'get', param => {
-  let list = Mock.mock({
-    'list|10': [
-      {
-        'id|+1': 1,
-        userName: 'contractTplName' + '@string("number", 4, 8)',
-        userCode: 'contractTplCode' + '@string("number", 4, 8)'
-      }
-    ]
-  }).list
-  return { list, total: 10 }
-})
+// Mock.mock(/sys-user\/find\?[^]/, 'get', param => {
+//   let list = Mock.mock({
+//     'list|10': [
+//       {
+//         'id|+1': 1,
+//         userName: 'contractTplName' + '@string("number", 4, 8)',
+//         userCode: 'contractTplCode' + '@string("number", 4, 8)'
+//       }
+//     ]
+//   }).list
+//   return { list, total: 10 }
+// })
 
 /**
  * 用户保存
@@ -88,9 +88,9 @@ Mock.mock('sys-user/save', 'post', param => {
 /**
  * 根据id获取
  */
-Mock.mock(/sys-user\/find\/[^]/, 'get', param => {
-  return { userCode: 'userCode1', userName: 'userName1', id: 1111 }
-})
+// Mock.mock(/sys-user\/find\/[^]/, 'get', param => {
+//   return { userCode: 'userCode1', userName: 'userName1', id: 1111 }
+// })
 
 /**
  * 删除

@@ -45,15 +45,18 @@ _axios.interceptors.response.use(
   },
   error => {
     window.vm.$store.dispatch('Main/endAjax', error.config.url)
-    error.response.state === 500 ||
-      window.vm.$toasted.error(error.response.data, ToastedUtils.ErrorOption)
-    error.response.state === 400 ||
+    // 自定义错误
+    error.response.status === 511 &&
       window.vm.$toasted.error(
         error.response.data.message,
         ToastedUtils.ErrorOption
       )
+    console.log(error.response.data)
     // Do something with response error
-    return Promise.reject(error.response.data)
+    return Promise.reject({
+      status: error.response.status,
+      data: error.response.data
+    })
   }
 )
 

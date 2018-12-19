@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-15 13:20:20
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-10-24 13:12:05
+ * @Last Modified time: 2018-12-19 10:45:49
  */
 import _ from 'lodash'
 import Qs from 'qs'
@@ -29,7 +29,7 @@ export default class AxiosUtils {
    *
    * @memberOf AxiosUtils
    */
-  extendGet(url, urlParam) {
+  extendGet(url, urlParam, pagination = undefined) {
     /**
      * 对象属性为空的不进行传递
      */
@@ -42,6 +42,7 @@ export default class AxiosUtils {
      * 提交对象为get url 参数
      */
     return this.get(url, {
+      headers: pagination,
       params: urlParam,
       paramsSerializer: function(params) {
         return Qs.stringify(params, { arrayFormat: 'repeat' })

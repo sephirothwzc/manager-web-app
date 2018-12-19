@@ -33,62 +33,68 @@
       v-model="dialog"
       max-width="500px"
     >
-      <v-card>
-        <v-card-title>
-          <span class="headline">{{ formTitle }}</span>
-        </v-card-title>
+      <v-form
+        v-model="valid"
+        ref="form"
+        lazy-validation
+      >
+        <v-card>
+          <v-card-title>
+            <span class="headline">{{ formTitle }}</span>
+          </v-card-title>
 
-        <v-card-text>
-          <v-container grid-list-md>
-            <v-layout wrap>
-              <v-flex
-                xs12
-                sm6
-                md4
-              >
-                <v-text-field
-                  v-model="editedItem.dictionaryCode"
-                  :label="$t('dictionaryCode')"
-                ></v-text-field>
-              </v-flex>
-              <v-flex
-                xs12
-                sm6
-                md4
-              >
-                <v-text-field
-                  v-model="editedItem.dictionaryDisplay"
-                  :label="$t('dictionaryDisplay')"
-                ></v-text-field>
-              </v-flex>
-              <v-flex
-                xs12
-                sm6
-                md4
-              >
-                <v-text-field
-                  v-model="editedItem.remark"
-                  :label="$t('remark')"
-                ></v-text-field>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-card-text>
+          <v-card-text>
+            <v-container grid-list-md>
+              <v-layout wrap>
+                <v-flex
+                  xs12
+                  sm6
+                  md4
+                >
+                  <v-text-field
+                    v-model="editedItem.dictionaryCode"
+                    :label="$t('dictionaryCode')"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex
+                  xs12
+                  sm6
+                  md4
+                >
+                  <v-text-field
+                    v-model="editedItem.dictionaryDisplay"
+                    :label="$t('dictionaryDisplay')"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex
+                  xs12
+                  sm6
+                  md4
+                >
+                  <v-text-field
+                    v-model="editedItem.remark"
+                    :label="$t('remark')"
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-text>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="blue darken-1"
-            flat
-            @click="close"
-          >取消</v-btn>
-          <v-btn
-            color="blue darken-1"
-            flat
-            @click="clickSave"
-          >保存</v-btn>
-        </v-card-actions>
-      </v-card>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue darken-1"
+              flat
+              @click="close"
+            >取消</v-btn>
+            <v-btn
+              color="blue darken-1"
+              flat
+              @click="clickSave"
+            >保存</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-form>
     </v-dialog>
   </v-container>
 </template>
@@ -98,6 +104,7 @@
 import DataGrid from '../../../components/DataGrid.vue'
 import GridView from '../../../commons/grid-view.js'
 import DataGridColumn from '../../../commons/data-grid-column.js'
+import ToastedUtils from '../../../utils/toasted-utils.js'
 // import FormUtils from '../../utils/form-utils.js'
 /**
  * 数据字典管理
@@ -127,12 +134,12 @@ export default {
       ],
       getMapping: '/data-dictionary/find-item',
       delMapping: '/data-dictionary/del'
-    })
+    }),
+    formTitle: '新增字典'
   }),
   methods: {
     // 行选择改变事件
     rowChange(selected) {
-      console.log(selected)
       selected && (this.$refs.detailview.formObject = { dictionaryCode: selected[0].dictionaryCode })
     },
     // 新增按钮点击事件
@@ -142,7 +149,31 @@ export default {
     },
     // 保存按钮点击事件
     clickSave() {
-
+      const val = this.$refs.form.validate()
+      if (!val) {
+        return this.$toasted.info(
+          this.$t('toasted.rules'),
+          ToastedUtils.InfoOption
+        )
+      }
+      this.$axios.post('/data-dictionary/save', this.editedItem)
+        .then((result) => {
+          this.$toasted.success(
+            this.$t('toasted.saveSuccess'),
+            ToastedUtils.SuccessOption
+          )
+          this.editedItem = {}
+        }).catch((err) => {
+          return this.$toasted.info(
+            err,
+            ToastedUtils.ErrorOption
+          )
+        })
+    },
+    // 取消按钮点击事件
+    close() {
+      this.editedItem = {}
+      this.dialog = false
     }
   }
 }

@@ -6,7 +6,7 @@
           v-if="btnAdd"
           flat
           :to="clickBtnAdd? undefined: addPath"
-          @click="clickBtnAdd"
+          @click.native="clickBtnAdd"
         >{{$t("btnAdd")}}</v-btn>
         <v-btn
           v-if="btnUpd"
@@ -16,7 +16,7 @@
         <v-btn
           v-if="btnDel"
           flat
-          @click="btnDelClick"
+          @click.native="btnDelClick"
         >{{$t("btnDel")}}</v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
@@ -348,12 +348,11 @@ export default {
       this.$axios
         .extendGet(this.gridView.GetMapping, {
           vagueSearch: this.vagueSearch,
-          ...this.formObject,
-          ...this.gridView.Pagination
-        })
+          ...this.formObject
+        }, this.gridView.Pagination)
         .then(data => {
-          this.desserts = data.list
-          this.totalRows = data.total
+          this.desserts = data.rows
+          this.totalRows = data.count
         })
     },
     /**
