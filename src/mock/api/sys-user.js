@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-15 16:57:54
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-12-18 23:26:41
+ * @Last Modified time: 2018-12-19 23:20:48
  */
 import Mock from 'mockjs'
 
@@ -81,9 +81,9 @@ Mock.mock('sys-user/navigation', 'get', param => {
 /**
  * 用户保存
  */
-Mock.mock('sys-user/save', 'post', param => {
-  return param
-})
+// Mock.mock('sys-user/save', 'post', param => {
+//   return param
+// })
 
 /**
  * 根据id获取

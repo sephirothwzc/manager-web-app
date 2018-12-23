@@ -53,7 +53,7 @@ export default {
      */
     initformDo(id) {
       this.$axios
-        .get(`sys-user/find/${id}`)
+        .get(`/sys-user/find/${id}`)
         .then(p => (this.formDo = p))
         .catch(error => console.log(error.message))
     },
@@ -69,7 +69,7 @@ export default {
       }
       this.loading = true
       this.$axios
-        .post('sys-user/save', this.formDo)
+        .post('/sys-user/save', this.formDo)
         .then(p => {
           this.$toasted.success(
             this.$t('toasted.saveSuccess'),

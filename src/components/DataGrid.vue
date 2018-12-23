@@ -40,6 +40,7 @@
       :headers="gridView.Columns"
       :items="desserts"
       :item-key="gridView.Id"
+      :total-items="totalRows"
       v-model="selected"
     >
       <template
@@ -109,7 +110,7 @@
         color="error"
         icon="warning"
       >
-        "{{ vagueSearch }} "{{$t('noResults')}}
+        "{{ vagueSearch }} "{{$t('noResults')}}"{{searchErr}}"
       </v-alert>
     </v-data-table>
     <v-snackbar
@@ -195,6 +196,8 @@ export default {
     }
   },
   data: () => ({
+    // 查询错误信息
+    searchErr: undefined,
     dataGridView: undefined,
     /**
      * 查询条件
@@ -294,7 +297,11 @@ export default {
      * 模糊查询
      */
     vagueSearchClick() {
-      this.$set(this.dataGridView.Pagination, 'page', 1)
+      if (this.dataGridView.pagination.page !== 1) {
+        this.$set(this.dataGridView.Pagination, 'page', 1)
+      } else {
+        this.loadData()
+      }
     },
     /**
      * 全选
@@ -353,6 +360,10 @@ export default {
         .then(data => {
           this.desserts = data.rows
           this.totalRows = data.count
+        }).catch(err => {
+          this.searchErr = err.message
+          this.desserts = undefined
+          this.totalRows = 0
         })
     },
     /**
