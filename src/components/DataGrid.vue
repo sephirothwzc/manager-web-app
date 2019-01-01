@@ -3,21 +3,20 @@
     <v-toolbar flat>
       <v-toolbar-items>
         <v-btn
+          v-for="(btnItem,index) in customButton"
+          :key="index"
+          flat
+          :to="btnItem.to? btnItem.to:undefined"
+          @click.native="btnItem.clickEvent"
+        >{{btnItem.text}}</v-btn>
+        <v-btn
           v-if="btnAdd"
           flat
           :to="clickBtnAdd? undefined: addPath"
           @click.native="clickBtnAdd"
         >{{$t("btnAdd")}}</v-btn>
-        <v-btn
-          v-if="btnUpd"
-          flat
-          :to="updPath"
-        >{{$t("btnUpd")}}</v-btn>
-        <v-btn
-          v-if="btnDel"
-          flat
-          @click.native="btnDelClick"
-        >{{$t("btnDel")}}</v-btn>
+        <v-btn v-if="btnUpd" flat :to="updPath">{{$t("btnUpd")}}</v-btn>
+        <v-btn v-if="btnDel" flat @click.native="btnDelClick">{{$t("btnDel")}}</v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-text-field
@@ -32,7 +31,7 @@
     <!-- <v-card-title>
       <v-spacer></v-spacer>
       <v-text-field @click:append="vagueSearchClick" v-model="vagueSearch" append-icon="search" :label="$t('vagueSearch')" single-line hide-details></v-text-field>
-    </v-card-title> -->
+    </v-card-title>-->
     <v-data-table
       :select-all="gridView.FirstCheck"
       class="elevation-1"
@@ -43,10 +42,7 @@
       :total-items="totalRows"
       v-model="selected"
     >
-      <template
-        slot="headers"
-        slot-scope="props"
-      >
+      <template slot="headers" slot-scope="props">
         <tr>
           <th v-show="gridView.FirstCheck">
             <v-checkbox
@@ -68,26 +64,12 @@
           </th>
         </tr>
       </template>
-      <template
-        slot="items"
-        slot-scope="props"
-      >
-        <tr
-          :active="props.selected"
-          @click="props.selected = !props.selected"
-        >
+      <template slot="items" slot-scope="props">
+        <tr :active="props.selected" @click="props.selected = !props.selected">
           <td v-show="gridView.FirstCheck">
-            <v-checkbox
-              :input-value="props.selected"
-              primary
-              hide-details
-            ></v-checkbox>
+            <v-checkbox :input-value="props.selected" primary hide-details></v-checkbox>
           </td>
-          <td
-            v-for="(gvColumn,i) in gridView.Columns "
-            :key="i "
-            :class="gvColumn.ColumnClass "
-          >
+          <td v-for="(gvColumn,i) in gridView.Columns " :key="i " :class="gvColumn.ColumnClass ">
             <template v-if="gvColumn.IsEdit">
               <!-- 编辑 -->
               <component
@@ -98,9 +80,9 @@
                 :data-row="props.item"
               ></component>
             </template>
-            <template v-else-if="!gvColumn.IsEdit">
-              {{props.item[gvColumn.DataField]}}
-            </template>
+            <template
+              v-else-if="!gvColumn.IsEdit"
+            >{{displayColumn(props.item[gvColumn.DataField],gvColumn)}}</template>
           </td>
         </tr>
       </template>
@@ -109,20 +91,11 @@
         :value="true"
         color="error"
         icon="warning"
-      >
-        "{{ vagueSearch }} "{{$t('noResults')}}"{{searchErr}}"
-      </v-alert>
+      >"{{ vagueSearch }} "{{$t('noResults')}}"{{searchErr}}"</v-alert>
     </v-data-table>
-    <v-snackbar
-      v-model="snack"
-      :timeout="3000"
-      :color="snackColor"
-    >
+    <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
       {{ snackText }}
-      <v-btn
-        flat
-        @click="snack = false"
-      >{{$t('toasted.close')}}</v-btn>
+      <v-btn flat @click="snack = false">{{$t('toasted.close')}}</v-btn>
     </v-snackbar>
   </v-card>
 </template>
@@ -286,6 +259,15 @@ export default {
   },
   methods: {
     /**
+     * 自定义显示列加载事件
+     */
+    displayColumn(value, item) {
+      if (item.displayEvent) {
+        return item.displayEvent(value)
+      }
+      return value
+    },
+    /**
      * 小吃吧调用
      */
     transferSnack(snackValue) {
@@ -376,12 +358,13 @@ export default {
         .value()
       this.$axios
         .post(this.dataGridView.DelMapping, ids)
-        .then(data =>
+        .then(data => {
+          this.loadData()
           this.$toasted.success(
             this.$t('toasted.delSuccess'),
             ToastedUtils.SuccessOption
           )
-        )
+        })
         .catch(err => console.log(err))
     },
     /**

@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-15 16:57:54
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-12-19 23:20:48
+ * @Last Modified time: 2018-12-30 23:02:51
  */
 import Mock from 'mockjs'
 
@@ -55,7 +55,8 @@ Mock.mock('sys-user/navigation', 'get', param => {
       title: 'app-manager',
       path: 'app-manager',
       children: [
-        { icon: 'event', title: 'advert-manager', path: 'advert-manager' }
+        { icon: 'event', title: 'advert-manager', path: 'advert-manager' },
+        { icon: 'event', title: '商户管理', path: 'app-user-manager' }
       ]
     }
   ] // 二级导航如果包含子集 path是不起作用的 三级菜单情况下 二级菜单没有 to
@@ -95,6 +96,6 @@ Mock.mock('sys-user/navigation', 'get', param => {
 /**
  * 删除
  */
-Mock.mock('/sys-user/del', 'post', param => {
-  return 1
-})
+// Mock.mock('/sys-user/del', 'post', param => {
+//   return 1
+// })

@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-19 14:36:44
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-11-20 21:21:05
+ * @Last Modified time: 2018-12-30 23:00:22
  */
 import Main from '../pages/Main.vue'
 export default [
@@ -57,6 +57,11 @@ export default [
         // 主页广告修改
         path: 'advert-manager/upd/:id',
         component: () => import('../views/app-manager/AdvertisementItem.vue')
+      },
+      {
+        // 注册用户管理
+        path: 'app-user-manager',
+        component: () => import('../views/app-manager/AppUserManager.vue')
       }
     ]
   }

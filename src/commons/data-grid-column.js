@@ -3,7 +3,7 @@
  * @Author: 吴占超
  * @Date: 2018-10-22 21:33:36
  * @Last Modified by: 吴占超
- * @Last Modified time: 2018-11-16 21:41:08
+ * @Last Modified time: 2018-12-31 08:16:30
  */
 import { validKey } from '../utils/common-utils.js'
 import DataGridColumnEdit from '../commons/data-grid-column-edit.js'
@@ -42,7 +42,8 @@ export default class DataGridColumn {
     isEdit = false,
     columnEdit = new DataGridColumnEdit({
       rules: new FormUtils().rules()
-    })
+    }),
+    displayEvent
   }) {
     this.text = text
     if (value) {
@@ -61,6 +62,7 @@ export default class DataGridColumn {
     this.width = width
     this.isEdit = isEdit
     this.columnEdit = columnEdit
+    this.displayEvent = displayEvent
   }
   get ColumnEdit() {
     return this.columnEdit
