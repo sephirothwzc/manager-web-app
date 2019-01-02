@@ -24,6 +24,9 @@ new AxiosUtils().extend(_axios)
 
 _axios.interceptors.request.use(
   function(config) {
+    // #region token
+    config.headers.common['Authorization'] = `Bearer ${window.vm.$store.getters['Main/User'].token}`
+    // #endregion
     // #region 注册ajaxLoad
     window.vm.$store.dispatch('Main/startAjax', config.url)
     // #endregion
@@ -45,7 +48,10 @@ _axios.interceptors.response.use(
   },
   error => {
     window.vm.$store.dispatch('Main/endAjax', error.config.url)
-    // 自定义错误
+    if (error.response.status === 401) {
+      window.vm.$router.push('/login')
+    }
+    // 自定义错误 消息提示
     error.response.status === 511 &&
       window.vm.$toasted.error(
         error.response.data.message,
